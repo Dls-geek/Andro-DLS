@@ -1,0 +1,7 @@
+# PhoneSploit-Pro (Dls-geek fork) — Python dependencies
+# Python 3.10+ required
+#
+# Core:
+python-nmap==0.7.1      # LAN device discovery (network scan)
+rich>=14.0.0            # terminal UI (tables, banners, status)
+paramiko>=3.4.0         # portmap.io permanent tunnel (SSH reverse-forward)

