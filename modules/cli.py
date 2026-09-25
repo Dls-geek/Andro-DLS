@@ -17,6 +17,7 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 from rich.text import Text
+from rich.columns import Columns
 
 from modules import banner
 from modules.console import console, ask, confirm, adb, print_error, print_success, print_warning
@@ -110,7 +111,7 @@ def get_keeper_status():
         return "unknown"
 
 
-def side_panel_main():
+def side_panel_main() -> Panel:
     """Side panel for main menu — system overview."""
     now = datetime.now().strftime("%H:%M:%S")
     date = datetime.now().strftime("%Y-%m-%d")
@@ -119,47 +120,46 @@ def side_panel_main():
     keeper = get_keeper_status()
 
     lines = []
-    lines.append("[bold white] SYSTEM[/bold white]")
-    lines.append(f"  [dim]time:[/dim]    [white]{now}[/white]")
-    lines.append(f"  [dim]date:[/dim]    [white]{date}[/white]")
-    lines.append(f"  [dim]host:[/dim]    [white]{os.uname().nodename}[/white]")
+    lines.append("[bold white]SYSTEM[/bold white]")
+    lines.append(f"  [dim]time[/dim]    {now}")
+    lines.append(f"  [dim]date[/dim]    {date}")
+    lines.append(f"  [dim]host[/dim]    {os.uname().nodename}")
     lines.append("")
-    lines.append("[bold white] DEVICES[/bold white]")
-    lines.append(f"  [dim]online:[/dim]  [green]{len(live)}[/green]")
-    lines.append(f"  [dim]saved:[/dim]   [white]{len(saved)}[/white]")
+    lines.append("[bold white]DEVICES[/bold white]")
+    lines.append(f"  [dim]online[/dim]  [green]{len(live)}[/green]")
+    lines.append(f"  [dim]saved[/dim]   {len(saved)}")
     for d in saved[:3]:
         status = "[green]●[/green]" if d.get("serial") in live else "[dim]○[/dim]"
-        lines.append(f"    {status} [dim]{d.get('name', '?')}[/dim]")
+        lines.append(f"    {status} {d.get('name', '?')}")
     lines.append("")
-    lines.append("[bold white] KEEPER[/bold white]")
+    lines.append("[bold white]KEEPER[/bold white]")
     kcolor = "green" if keeper == "running" else "dim"
-    lines.append(f"  [dim]status:[/dim]  [{kcolor}]{keeper}[/{kcolor}]")
-    return "\n".join(lines)
+    lines.append(f"  [dim]status[/dim]  [{kcolor}]{keeper}[/{kcolor}]")
+    return Panel("\n".join(lines), border_style="white", title="[dim]STATUS[/dim]", padding=(0, 1))
 
 
-def side_panel_devices():
+def side_panel_devices() -> Panel:
     """Side panel for devices page — live device list."""
     live = get_live_devices()
     saved = load_devices()
 
     lines = []
-    lines.append("[bold white] LIVE DEVICES[/bold white]")
+    lines.append("[bold white]LIVE[/bold white]")
     if live:
         for serial in live:
             model, _ = adb("-s", serial, "shell", "getprop", "ro.product.model", timeout=3)
-            lines.append(f"  [green]●[/green] [white]{model or serial}[/white]")
-            lines.append(f"      [dim]{serial}[/dim]")
+            lines.append(f"  [green]●[/green] {model or serial}")
     else:
-        lines.append("  [dim]none connected[/dim]")
+        lines.append("  [dim]none[/dim]")
     lines.append("")
-    lines.append("[bold white] SAVED[/bold white]")
+    lines.append("[bold white]SAVED[/bold white]")
     for d in saved:
         status = "[green]●[/green]" if d.get("serial") in live else "[dim]○[/dim]"
-        lines.append(f"  {status} [dim]{d.get('name', '?')}[/dim]")
-    return "\n".join(lines)
+        lines.append(f"  {status} {d.get('name', '?')}")
+    return Panel("\n".join(lines), border_style="white", title="[dim]DEVICES[/dim]", padding=(0, 1))
 
 
-def side_panel_build():
+def side_panel_build() -> Panel:
     """Side panel for build page — build info."""
     root = _project_root()
     apks = []
@@ -174,18 +174,18 @@ def side_panel_build():
             apks.append((name, size_str))
 
     lines = []
-    lines.append("[bold white] BUILDS[/bold white]")
+    lines.append("[bold white]BUILDS[/bold white]")
     if apks:
         for name, size in apks:
-            lines.append(f"  [white]{name}[/white]")
+            lines.append(f"  {name}")
             lines.append(f"    [dim]{size}[/dim]")
     else:
-        lines.append("  [dim]no builds yet[/dim]")
-    return "\n".join(lines)
+        lines.append("  [dim]none yet[/dim]")
+    return Panel("\n".join(lines), border_style="white", title="[dim]BUILDS[/dim]", padding=(0, 1))
 
 
-def side_panel(page: str) -> str:
-    """Return context-aware side panel content."""
+def side_panel(page: str) -> Panel:
+    """Return context-aware side panel."""
     panels = {
         "main": side_panel_main,
         "devices": side_panel_devices,
@@ -204,18 +204,18 @@ def render_page(page_name: str, page_num: int = 0):
     # Banner
     console.print(banner.banner)
 
-    # Menu
-    if page_num < len(banner.menu):
-        console.print(banner.menu[page_num])
-
-    # Side panel
+    # Menu text (left) + side panel (right)
+    menu_text = banner.menu[page_num] if page_num < len(banner.menu) else banner.menu[0]
     side = side_panel(page_name)
-    console.print(f"\n[bold white]{side}[/bold white]")
+
+    # Use Columns for side-by-side layout
+    columns = Columns([menu_text, side], equal=True, expand=True)
+    console.print(columns)
 
     # Footer
     now = datetime.now().strftime("%H:%M:%S")
     live = len(get_live_devices())
-    console.print(f"\n[dim]─── [{now}] │ {live} online │ ctOS bridge active ───[/dim]")
+    console.print(f"\n[dim]─── [{now}] │ {live} online │ ctOS active ───[/dim]")
 
 
 # ─── Check ADB ─────────────────────────────────────────────────────────────

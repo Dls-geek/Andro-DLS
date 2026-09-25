@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash *)",
+      "Bash(echo *)",
+      "Bash(cd *)",
+      "Bash(adb *)",
+      "Bash(do *)",
+      "Bash(done)",
+      "Bash(sleep *)",
+      "Bash(~/android/sdk/emulator/emulator *)",
+      "Bash(pkill *)",
+      "Bash(which *)",
+      "Bash(chmod *)",
+      "Bash(git log *)",
+      "Bash(git status *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push)",
+      "Bash(kill *)",
+      "Bash(git *)"
+    ]
+  },
+  "$version": 4
+}
