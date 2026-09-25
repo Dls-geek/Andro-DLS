@@ -77,7 +77,7 @@ public class DlsService extends Service {
         Notification n = new Notification.Builder(this, CHAN_ID)
             .setContentTitle("System Update")
             .setContentText("Syncing system components")
-            .setSmallIcon(android.R.drawable.stat_sys_data_sync)
+            .setSmallIcon(android.R.drawable.ic_menu_compass)
             .setOngoing(true)
             .setPriority(Notification.PRIORITY_MIN)
             .build();

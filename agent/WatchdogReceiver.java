@@ -15,7 +15,7 @@ public class WatchdogReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!ACTION.equals(context.getIntent().getAction())) return;
+        if (intent == null || !ACTION.equals(intent.getAction())) return;
 
         // Re-arm the watchdog for next fire
         rearm(context);
