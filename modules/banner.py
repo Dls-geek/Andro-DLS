@@ -58,7 +58,7 @@ menu5 = """
     [bold blue]── DATA ACCESS ─────────────────────────────────────────────────[/bold blue]
 
     [white]1.[/white] [green]▸ SCREENSHOT[/green]            [dim]capture screen[/dim]
-    [white]2.[/white] [green]▸ SCREEN RECORD[/green]         [dim]record screen[/dim]
+    [white]2.[/white] [green] SCREEN RECORD[/green]         [dim]record screen[/dim]
     [white]3.[/white] [green]▸ SMS DUMP[/green]              [dim]read all SMS messages[/dim]
     [white]4.[/white] [green]▸ CONTACTS DUMP[/green]         [dim]read all contacts[/dim]
     [white]5.[/white] [green]▸ CALL LOGS[/green]             [dim]read call history[/dim]
@@ -69,7 +69,7 @@ menu5 = """
     [white]10.[/white] [green]▸ APP LIST[/green]             [dim]list all installed apps[/dim]
     [white]11.[/white] [green]▸ SYSTEM INFO[/green]          [dim]device info · battery · network[/dim]
     [white]12.[/white] [green]▸ SEND SMS[/green]             [dim]send SMS from device[/dim]
-    [white]13.[/white] [green]▸ OPEN URL[/green]             [dim]open URL on device[/dim]
+    [white]13.[/white] [green] OPEN URL[/green]             [dim]open URL on device[/dim]
 
     [dim]99. Back to Main Menu[/dim]
 """
@@ -88,38 +88,62 @@ menu6 = """
 
 menu = [menu1, menu2, menu3, menu4, menu5, menu6]
 
-# ─── Banners ───────────────────────────────────────────────────────────────
+# ─── Banners (ALL say ANDRO-DLS — zero PhoneSploit) ────────────────────────
+
+banner1 = """
+     █████╗ ███╗   ██╗ ██████╗ ███╗   ██╗ ██████╗ ███████╗
+    ██╔══██╗████╗  ██║██╔════╝ ████╗  ██║██╔═══██╗██╔════╝
+    ███████║██╔██╗ ██║██║  ███╗██╔██╗ ██║██║   ██║█████╗
+    ██╔══██║██║██╗██║██║   ██║██║╚██╗██║██║   ██║██╔══╝
+    ██║  ██║██║ ╚████║██████╔╝██║ ╚████║╚██████╔╝███████╗
+    ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
+
+
+            [red]{version}[/red]                [white]By Khurshid Jhon & Dls-geek Team[/white]
+""".format(version=version)
 
 banner2 = """
-        ░█▀▀█ █──█ █▀▀█ █▀▀▄ █▀▀ ░█▀▀▀█ █▀▀█ █── █▀▀█ ─▀─ ▀▀█▀▀ 　 ░█▀▀█ █▀▀█ █▀▀█
-        ░█▄▄█ █▀▀█ █──█ █──█ █▀▀ ─▀▀▀▄▄ █──█ █── █──█ ▀█▀ ──█── 　 ░█▄▄█ █▄▄▀ █──█
-        ░█─── ▀──▀ ▀▀▀▀ ▀──▀ ▀▀▀ ░█▄▄▄█ █▀▀▀ ▀▀▀ ▀▀▀▀ ▀▀▀ ──▀── 　 ░█─── ▀─▀▀ ▀▀▀▀
+        ███╗   ███╗ ██████╗  ██████╗ ███████╗ █████╗ ██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗
+        ████╗ ████║██═══██╗██╔════╝ ██╔════╝██╔══██╗██║   ██║██║     ██╔══██╗╚══██╔══╝██╔═══██╗██══██╗
+        ██╔██████║██║   ██║██║  ███╗█████╗  ███████║██║   ██║██║     ███████║   ██║   ██║   ██║██████╔╝
+        ██║╚██╔╝██║██║   ██║██║   ██║██╔══╝  ██══██║██║   ██║██║     ██╔══██║   ██║   ██║   ██║██╔══██╗
+        ██║ ╚═╝ ██║██████╔╝╚██████╗ ███████╗██║  ██║╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║
+        ╚═╝     ╚═╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
 
 
             [red]{version}[/red]            [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner3 = """
-        █▀█ █░█ █▀█ █▄░█ █▀▀ █▀ █▀█ █░░ █▀█ █ ▀█▀   █▀█ █▀█ █▀█
-        █▀▀ █▀█ █▄█ █░▀█ ██▄ ▄█ █▀▀ █▄▄ █▄█ █ ░█░   █▀▀ █▀▄ █▄█
+    ██████╗ ███████╗ ██████╗ ██╗███████╗██╗   ██╗██████╗ ███████╗
+    ██╔══██╗██╔════╝██╔═══██╗██║██╔════╝██║   ██║██╔══██╗██╔════╝
+    ██║  ██║█████╗  ██║   ██║██║███████╗██║   ██║██████╔╝█████╗
+    ██║  ██║██╔══╝  ██║   ██║██║╚════██║██║   ██║██╔══██╗██╔══╝
+    ██████╔╝███████╗██████╔╝██║███████║╚██████╔╝██║  ██║███████╗
+    ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝╚══════╝ ═════╝ ╚═╝  ╚═╝╚══════╝
+
+
+            [red]{version}[/red]                [white]By Khurshid Jhon & Dls-geek Team[/white]
+""".format(version=version)
+
+banner4 = """
+        ░█▀█ █──█ █▀▀█ █▀▀▄ █▀ ░█▀▀▀█ █▀█ █── █▀█ ─▀─ ▀▀█▀▀  ░█▀█ █▀▀█ █▀█
+        ░█▄▄█ █▀▀█ █──█ █──█ █▀▀ ─▀▀▀▄▄ █──█ █── █──█ ▀█▀ ──█──  ░█▄▄█ █▄▀ █──█
+        ░█─── ▀──▀ ▀▀▀▀ ▀──▀ ▀▀ ░█▄▄▄█ █▀▀ ▀▀ ▀▀▀▀ ▀▀ ──▀──  ░█─── ▀─▀▀ ▀▀▀▀
+
+
+            [red]{version}[/red]            [white]By Khurshid Jhon & Dls-geek Team[/white]
+""".format(version=version)
+
+banner5 = """
+        █▀█ █░█ █▀█ █▄░█ █▀▀ █▀ █▀█ █░░ █▀█ █ ▀█   █▀█ █▀█ ██
+        █▀▀ █▀█ █▄█ █░▀█ ██ ▄█ █▀▀ █▄▄ █▄█ █ ░█░   █▀▀ █▀▄ ██
 
 
             [red]{version}[/red]             [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
-banner4 = """
-    _________.__                           _________      .__         .__  __    __________
-    \\______  \\  |__   ____   ____  ____  /   _____/_____ |  |   ____ |__|/  |_  \\______   \\_______  ____
-    |     ___/  |  \\ /  _ \\ /    \\_/ __ \\ \\_____  \\\\____ \\|  |  /  _ \\|  \\   __\\  |     ___/\\_  __ \\/  _ \\
-    |    |   |   Y  (  <_> )   |  \\  ___/ /        \\  |_> >  |_(  <_> )  ||  |    |    |     |  | \\(  <_> )
-    |____|   |___|  /\\____/|___|  /\\___  >_______  /   __/|____/\\____/|__||__|    |____|     |__|   \\____/
-                  \\/            \\/     \\/        \\/ |__|
-
-
-        [red]{version}[/red]                             [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner5 = """
+banner6 = """
        ___  __                 ____     __     _ __     ___
       / _ \\/ /  ___  ___  ___ / __/__  / /__  (_) /_   / _ \\_______
      / ___/ _ \\/ _ \\/ _ \\/ -_)\\ \\/ _ \\/ / _ \\/ / __/  / ___/ __/ _ \\
@@ -129,21 +153,7 @@ banner5 = """
         [red]{version}[/red]        [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
-banner10 = """
-     ____    __                              ____            ___               __        ____
-    /\\  _`\\ /\\ \\                            /\\  _`\\         /\\_ \\           __/\\ \\__    /\\  _`\\
-    \\ \\ \\L\\ \\ \\ \\___     ___     ___      __\\ \\,\\L\\_\\  _____\\//\\ \\     ___ /\\_\\ \\ ,_\\   \\ \\ \\L\\ \\_ __   ___
-     \\ \\ ,__/\\ \\  _ `\\  / __`\\ /' _ `\\  /'__`\\/_\\__ \\ /\\ '__`\\\\\\ \\ \\   / __`\\/\\ \\ \\ \\/    \\ \\ ,__/\\`'__\\/ __`\\
-      \\ \\ \\/  \\ \\ \\ \\ \\/\\ \\L\\ \\/\\ \\/\\ \\/\\  __/ /\\ \\L\\ \\ \\ \\L\\ \\\\_\\ \\_/\\ \\L\\ \\ \\ \\ \\ \\_    \\ \\ \\/\\ \\ \\//\\ \\L\\ \\
-       \\ \\_\\   \\ \\_\\ \\_\\ \\____/\\ \\_\\ \\_\\ \\____\\\\ `\\____\\ \\ ,__//\\____\\ \\____/\\ \\_\\ \\__\\    \\ \\_\\ \\ \\_\\\\ \\____/
-        \\/_/    \\/_/\\/_/\\/___/  \\/_/\\/_/\\/____/ \\/_____/\\ \\ \\/ \\/____/\\/___/  \\/_/\\/__/     \\/_/  \\/_/ \\/___/
-                                                         \\ \\_\\
-                                                          \\/_/
-
-            [red]{version}[/red]                                [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner_list = [banner2, banner3, banner4, banner5, banner10]
+banner_list = [banner1, banner2, banner3, banner4, banner5, banner6]
 
 # ─── Instructions ──────────────────────────────────────────────────────────
 
@@ -155,21 +165,21 @@ instructions_banner = """[cyan]
         ║    → Connect phone via USB cable                       ║
         ║    → Enable USB debugging on phone                     ║
         ║    → Tool switches phone to wireless ADB               ║
-        ║    → Remove cable — everything works over WiFi now     ║
+        ║    → Remove cable — everything works over WiFi now     
         ║                                                        ║
         ║  Step 2: CONNECTED DEVICES (Option 2)                  ║
         ║    → See all connected devices                         ║
         ║    → Pick device → connect                             ║
-        ║    → Pull APKs, grant permissions, manage              ║
+            → Pull APKs, grant permissions, manage              ║
         ║                                                        ║
         ║  Step 3: BUILD AGENT (Option 3)                        ║
         ║    → Pure / Enhanced / Trojan Bind                     ║
         ║    → Deploy to device → agent runs hidden              ║
         ║                                                        ║
         ║  Step 4: C2 & TUNNEL (after deploy)                    ║
-        ║    → Start keeper → Cloudflare tunnel                  ║
+            → Start keeper → Cloudflare tunnel                  ║
         ║    → Agent connects → full control from anywhere       ║
-        ║                                                        ║
+        ║                                                        
         ║  Step 5: DATA ACCESS                                   ║
         ║    → Screenshots, SMS, contacts, camera, mic, location ║
         ║    → All over C2 tunnel — any network, any country     ║
