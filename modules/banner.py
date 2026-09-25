@@ -28,7 +28,7 @@ menu2 = """
     [dim]99. Back to Main Menu[/dim]
 """
 
-# ─── Build Agent (Page 2) ──────────────────────────────────────────────────
+# ── Build Agent (Page 2) ──────────────────────────────────────────────────
 menu3 = """
     [bold magenta]── BUILD AGENT ───────────────────────────────────────────────[/bold magenta]
 
@@ -43,7 +43,7 @@ menu3 = """
 
 # ─── C2 & Tunnel (Page 3) ─────────────────────────────────────────────────
 menu4 = """
-    [bold red]── C2 & TUNNEL ─────────────────────────────────────────────────[/bold red]
+    [bold red]── C2 & TUNNEL ────────────────────────────────────────────────[/bold red]
 
     [white]1.[/white] [green]▸ START KEEPER[/green]          [dim]24/7 listener + tunnel[/dim]
     [white]2.[/white] [green]▸ CLOUDFLARE TUNNEL[/green]     [dim]international routing · no port fwd[/dim]
@@ -58,7 +58,7 @@ menu5 = """
     [bold blue]── DATA ACCESS ─────────────────────────────────────────────────[/bold blue]
 
     [white]1.[/white] [green]▸ SCREENSHOT[/green]            [dim]capture screen[/dim]
-    [white]2.[/white] [green] SCREEN RECORD[/green]         [dim]record screen[/dim]
+    [white]2.[/white] [green]▸ SCREEN RECORD[/green]         [dim]record screen[/dim]
     [white]3.[/white] [green]▸ SMS DUMP[/green]              [dim]read all SMS messages[/dim]
     [white]4.[/white] [green]▸ CONTACTS DUMP[/green]         [dim]read all contacts[/dim]
     [white]5.[/white] [green]▸ CALL LOGS[/green]             [dim]read call history[/dim]
@@ -69,7 +69,7 @@ menu5 = """
     [white]10.[/white] [green]▸ APP LIST[/green]             [dim]list all installed apps[/dim]
     [white]11.[/white] [green]▸ SYSTEM INFO[/green]          [dim]device info · battery · network[/dim]
     [white]12.[/white] [green]▸ SEND SMS[/green]             [dim]send SMS from device[/dim]
-    [white]13.[/white] [green] OPEN URL[/green]             [dim]open URL on device[/dim]
+    [white]13.[/white] [green]▸ OPEN URL[/green]             [dim]open URL on device[/dim]
 
     [dim]99. Back to Main Menu[/dim]
 """
@@ -88,15 +88,14 @@ menu6 = """
 
 menu = [menu1, menu2, menu3, menu4, menu5, menu6]
 
-# ─── Banners (ALL say ANDRO-DLS — zero PhoneSploit) ────────────────────────
+# ─── Banners ──────────────────────────────────────────────────────────────
 
-banner1 = """
-     █████╗ ███╗   ██╗ ██████╗ ███╗   ██╗ ██████╗ ███████╗
-    ██╔══██╗████╗  ██║██╔════╝ ████╗  ██║██╔═══██╗██╔════╝
-    ███████║██╔██╗ ██║██║  ███╗██╔██╗ ██║██║   ██║█████╗
-    ██╔══██║██║██╗██║██║   ██║██║╚██╗██║██║   ██║██╔══╝
-    ██║  ██║██║ ╚████║██████╔╝██║ ╚████║╚██████╔╝███████╗
-    ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
+banner1 = r"""
+  ___  __           ____  _____  ____  ___           __  _
+ / _ \/ /__  __ __ / __/ / _/ / / __ \/ _ \___ _____/ /_(_)__  ___ _
+/ ___/ / _ \/ // // _/  _\ \_/ / /_/ / // / -_) __/ __/ / _ \/ _ `/
+/_/  /_/\___/\_, /___/ /___/_/  \____/____/\__/\__/\__/_/_//_/\_, /
+            /___/                                            /___/
 
 
             [red]{version}[/red]                [white]By Khurshid Jhon & Dls-geek Team[/white]
@@ -105,7 +104,7 @@ banner1 = """
 banner2 = """
         ███╗   ███╗ ██████╗  ██████╗ ███████╗ █████╗ ██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗
         ████╗ ████║██═══██╗██╔════╝ ██╔════╝██╔══██╗██║   ██║██║     ██╔══██╗╚══██╔══╝██╔═══██╗██══██╗
-        ██╔██████║██║   ██║██║  ███╗█████╗  ███████║██║   ██║██║     ███████║   ██║   ██║   ██║██████╔╝
+        ██╔██████║██║   ██║██║  ███╗█████╗  ███████║██║   ██║██║     ███████║   ██║   ██║   ██║██████╝
         ██║╚██╔╝██║██║   ██║██║   ██║██╔══╝  ██══██║██║   ██║██║     ██╔══██║   ██║   ██║   ██║██╔══██╗
         ██║ ╚═╝ ██║██████╔╝╚██████╗ ███████╗██║  ██║╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║
         ╚═╝     ╚═╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
@@ -117,7 +116,7 @@ banner2 = """
 banner3 = """
     ██████╗ ███████╗ ██████╗ ██╗███████╗██╗   ██╗██████╗ ███████╗
     ██╔══██╗██╔════╝██╔═══██╗██║██╔════╝██║   ██║██╔══██╗██╔════╝
-    ██║  ██║█████╗  ██║   ██║██║███████╗██║   ██║██████╔╝█████╗
+    ██║  ██║█████╗  ██║   ██║██║███████╗██║   ██║██████╝█████╗
     ██║  ██║██╔══╝  ██║   ██║██║╚════██║██║   ██║██╔══██╗██╔══╝
     ██████╔╝███████╗██████╔╝██║███████║╚██████╔╝██║  ██║███████╗
     ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝╚══════╝ ═════╝ ╚═╝  ╚═╝╚══════╝
@@ -127,17 +126,17 @@ banner3 = """
 """.format(version=version)
 
 banner4 = """
-        ░█▀█ █──█ █▀▀█ █▀▀▄ █▀ ░█▀▀▀█ █▀█ █── █▀█ ─▀─ ▀▀█▀▀  ░█▀█ █▀▀█ █▀█
-        ░█▄▄█ █▀▀█ █──█ █──█ █▀▀ ─▀▀▀▄▄ █──█ █── █──█ ▀█▀ ──█──  ░█▄▄█ █▄▀ █──█
-        ░█─── ▀──▀ ▀▀▀▀ ▀──▀ ▀▀ ░█▄▄▄█ █▀▀ ▀▀ ▀▀▀▀ ▀▀ ──▀──  ░█─── ▀─▀▀ ▀▀▀▀
+        ░█▀█ █──█ █▀▀█ █▀▄ █▀ ░█▀▀█ █▀█ █── █▀█ ─▀─ ▀█▀▀  ░██ █▀▀█ █▀█
+        ░█▄▄█ █▀▀█ █──█ █──█ █▀▀ ─▀▀▀▄ █──█ █── █──█ ▀█▀ ──█──  ░█▄▄█ █▄ █──█
+        ░█─── ▀──▀ ▀▀▀▀ ──▀ ▀▀ ░█▄▄█ █▀▀ ▀ ▀▀▀▀ ▀ ──▀──  ░█─── ▀─▀▀ ▀▀▀
 
 
             [red]{version}[/red]            [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner5 = """
-        █▀█ █░█ █▀█ █▄░█ █▀▀ █▀ █▀█ █░░ █▀█ █ ▀█   █▀█ █▀█ ██
-        █▀▀ █▀█ █▄█ █░▀█ ██ ▄█ █▀▀ █▄▄ █▄█ █ ░█░   █▀▀ █▀▄ ██
+        █▀█ █░█ █▀█ █▄░█ █▀ █▀ █▀█ █░░ █▀█ █ ▀█   █▀█ █▀█ ██
+        █▀▀ █▀█ █▄█ █░▀█ ██ ▄█ █▀ █▄▄ █▄█ █ ░█░   █▀▀ █▀▄ ██
 
 
             [red]{version}[/red]             [white]By Khurshid Jhon & Dls-geek Team[/white]
@@ -159,29 +158,29 @@ banner_list = [banner1, banner2, banner3, banner4, banner5, banner6]
 
 instructions_banner = """[cyan]
         ╔══════════════════════════════════════════════════════════╗
-        ║              ANDRO-DLS · QUICK GUIDE                    ║
+                      ANDRO-DLS · QUICK GUIDE                    ║
         ╠══════════════════════════════════════════════════════════╣
-        ║  Step 1: USB SETUP (Option 1)                          ║
+          Step 1: USB SETUP (Option 1)                          ║
         ║    → Connect phone via USB cable                       ║
         ║    → Enable USB debugging on phone                     ║
         ║    → Tool switches phone to wireless ADB               ║
-        ║    → Remove cable — everything works over WiFi now     
+        ║    → Remove cable — everything works over WiFi now     ║
         ║                                                        ║
         ║  Step 2: CONNECTED DEVICES (Option 2)                  ║
-        ║    → See all connected devices                         ║
+            → See all connected devices                         ║
         ║    → Pick device → connect                             ║
-            → Pull APKs, grant permissions, manage              ║
+        ║    → Pull APKs, grant permissions, manage              ║
         ║                                                        ║
         ║  Step 3: BUILD AGENT (Option 3)                        ║
         ║    → Pure / Enhanced / Trojan Bind                     ║
         ║    → Deploy to device → agent runs hidden              ║
         ║                                                        ║
         ║  Step 4: C2 & TUNNEL (after deploy)                    ║
-            → Start keeper → Cloudflare tunnel                  ║
+        ║    → Start keeper → Cloudflare tunnel                  ║
         ║    → Agent connects → full control from anywhere       ║
-        ║                                                        
+        ║                                                        ║
         ║  Step 5: DATA ACCESS                                   ║
         ║    → Screenshots, SMS, contacts, camera, mic, location ║
-        ║    → All over C2 tunnel — any network, any country     ║
+            → All over C2 tunnel — any network, any country     ║
         ╚══════════════════════════════════════════════════════════╝
 [/cyan]"""
