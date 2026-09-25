@@ -10,17 +10,17 @@ export const navLinks = [
 
 export const socialLinks = [
   {
-    href: "https://github.com/Dls-geek/PhoneSploit-Pro",
+    href: "https://github.com/Dls-geek/Andro-DLS",
     label: "GitHub",
     icon: "github",
   },
   {
-    href: "https://github.com/Dls-geek/PhoneSploit-Pro/issues",
+    href: "https://github.com/Dls-geek/Andro-DLS/issues",
     label: "Issues",
     icon: "github",
   },
   {
-    href: "https://github.com/Dls-geek/PhoneSploit-Pro/discussions",
+    href: "https://github.com/Dls-geek/Andro-DLS/discussions",
     label: "Discussions",
     icon: "github",
   },
@@ -28,8 +28,8 @@ export const socialLinks = [
 
 export const repoInfo = {
   owner: "Dls-geek",
-  repo: "PhoneSploit-Pro",
-  url: "https://github.com/Dls-geek/PhoneSploit-Pro",
+  repo: "Andro-DLS",
+  url: "https://github.com/Dls-geek/Andro-DLS",
   stars: githubStats.stars,
   forks: githubStats.forks,
   starsFormatted: githubStats.starsFormatted,

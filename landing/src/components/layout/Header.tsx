@@ -31,9 +31,9 @@ export default function Header() {
     >
       <nav className="container-custom" aria-label="Main navigation">
         <div className="flex h-16 items-center justify-between">
-          <a href={`${basePath}/`} className="flex items-center gap-2 text-xl font-bold text-white hover:opacity-80 transition-opacity" aria-label="PhoneSploit Pro Home">
-            <span className="text-primary-400">PhoneSploit</span>
-            <span className="text-white">Pro</span>
+          <a href={`${basePath}/`} className="flex items-center gap-2 text-xl font-bold text-white hover:opacity-80 transition-opacity" aria-label="Andro-DLS Home">
+            <span className="text-primary-400">Andro-</span>
+            <span className="text-white">DLS</span>
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -47,7 +47,7 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="https://github.com/Dls-geek/PhoneSploit-Pro"
+              href="https://github.com/Dls-geek/Andro-DLS"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary text-sm px-4 py-2"
@@ -89,7 +89,7 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="https://github.com/Dls-geek/PhoneSploit-Pro"
+              href="https://github.com/Dls-geek/Andro-DLS"
               target="_blank"
               rel="noopener noreferrer"
               className="block px-4 py-2 rounded-lg text-primary-300 hover:bg-surface-700 hover:text-white transition-colors"

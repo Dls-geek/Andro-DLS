@@ -1,7 +1,7 @@
 """Watchdog menu (CLI option 66) — control the dls-keeper 24/7 daemon.
 
 The keeper runs OUTSIDE this CLI as a systemd user service, so the tunnel +
-shell listener stay up even when PhoneSploit-Pro is closed. This menu is just
+shell listener stay up even when Andro-DLS is closed. This menu is just
 a friendly remote control: status / start / stop / attach / wake / logs.
 """
 from __future__ import annotations

@@ -15,10 +15,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata = {
   metadataBase: new URL(getSiteUrl()),
-  title: 'PhoneSploit Pro — Android ADB & Metasploit Toolkit',
+  title: 'Andro-DLS — Android ADB & Metasploit Toolkit',
   description: 'All-in-one hacking tool to remotely exploit Android devices using ADB and Metasploit-Framework. Automated Meterpreter sessions, device control, data extraction, and more.',
   openGraph: {
-    title: 'PhoneSploit Pro',
+    title: 'Andro-DLS',
     description: 'Android ADB & Metasploit automation toolkit',
     images: ['/og-image.png'],
     type: 'website',

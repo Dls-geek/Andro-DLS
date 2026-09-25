@@ -1,6 +1,6 @@
 # pipeline/ — scripts & handlers (legacy + helpers)
 
-> **Primary path is the CLI**: `phonesploitpro.py` → options **64** (Full Access),
+> **Primary path is the CLI**: `androdls.py` → options **64** (Full Access),
 > **65** (Auto-Pivot), **66** (Portmap setup). Python logic lives in
 > `modules/remoteshell.py`, `modules/tunnel.py`, `modules/pivot.py`,
 > `modules/full_access.py`, `modules/shell_access.py`.

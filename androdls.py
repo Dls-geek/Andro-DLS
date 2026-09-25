@@ -1,9 +1,9 @@
 """
     COPYRIGHT DISCLAIMER
 
-    Script : PhoneSploit Pro - All in One Android Hacking ADB Toolkit
+    Script : Andro-DLS - All in One Android Hacking ADB Toolkit
 
-    Copyright (C) 2026  Azeem Idrisi (github.com/AzeemIdrisi)
+    Copyright (C) 2026  Khurshid Jhon (github.com/Dls-geek)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,12 +17,6 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-    Forking and modifying are allowed, but credit must be given to the
-    original developer, [Azeem Idrisi (github.com/AzeemIdrisi)], and copying the code
-    is not permitted without permission.
-
-    For any queries, open an issue at : https://github.com/Dls-geek/PhoneSploit-Pro/issues
 """
 
 from modules.cli import run

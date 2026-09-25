@@ -8,7 +8,7 @@ Flow:
   E) Tunnel      — pinggy/ngrok/portmap public port (phone untouched)
   F) Shell       — pure-Python listener, no Metasploit
 
-Every phase is wrapped so the PhoneSploit CLI never crashes — on any failure
+Every phase is wrapped so the Andro-DLS CLI never crashes — on any failure
 we print a friendly message and return to the main menu.
 """
 from __future__ import annotations

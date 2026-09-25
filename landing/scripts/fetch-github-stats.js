@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const GITHUB_REPO = 'Dls-geek/PhoneSploit-Pro';
+const GITHUB_REPO = 'Dls-geek/Andro-DLS';
 const GITHUB_API = `https://api.github.com/repos/${GITHUB_REPO}`;
 
 async function fetchGitHubStats() {

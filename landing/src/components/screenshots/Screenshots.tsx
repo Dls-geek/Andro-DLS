@@ -16,13 +16,13 @@ export default function Screenshots() {
     <Section id="screenshots" className="relative">
       <div className="max-w-4xl mx-auto text-center mb-16">
         <Badge variant="info" className="mb-4 inline-block">In Action</Badge>
-        <h2 className="section-title">See PhoneSploit Pro in Action</h2>
+        <h2 className="section-title">See Andro-DLS in Action</h2>
         <p className="section-subtitle mx-auto">
-          A look at PhoneSploit Pro in action.
+          A look at Andro-DLS in action.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" role="list" aria-label="PhoneSploit Pro screenshots">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" role="list" aria-label="Andro-DLS screenshots">
         {screenshots.map((screenshot, index) => (
           <motion.article
             key={screenshot.id}

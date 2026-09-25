@@ -3,7 +3,7 @@
 Single source of truth for: build FGS payload → install/launch on device →
 tunnel (pinggy/ngrok/portmap) → pure-Python interactive shell (no Metasploit).
 Everything is exception-safe: a failure returns a friendly message, never
-crashes the PhoneSploit CLI.
+crashes the Andro-DLS CLI.
 """
 from __future__ import annotations
 

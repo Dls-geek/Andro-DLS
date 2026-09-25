@@ -1,4 +1,4 @@
-"""Device Store + Takeover wizard (CLI 1/2/3) — the primary face of PhoneSploit.
+"""Device Store + Takeover wizard (CLI 1/2/3) — the primary face of Andro-DLS.
 
 Replaces the old manual "1 connect / 2 list / 3 scan" with an ownership-first
 flow:

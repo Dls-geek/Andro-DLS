@@ -10,7 +10,7 @@ export default function Showcase() {
     <Section id="showcase" className="relative">
       <div className="max-w-4xl mx-auto text-center mb-16">
         <Badge variant="info" className="mb-4 inline-block">Video Demos</Badge>
-        <h2 className="section-title">Watch PhoneSploit Pro in Action</h2>
+        <h2 className="section-title">Watch Andro-DLS in Action</h2>
         <p className="section-subtitle mx-auto">
           Step-by-step walkthroughs covering device connection, control, and exploitation.
         </p>

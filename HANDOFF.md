@@ -1,9 +1,27 @@
 # Andro-DLS — Remote Android Control Toolkit (DLS Lab)
 ## SESSION HANDOFF — Andro-DLS (Dls-geek fork)
 
-> Last updated: 2026-08-29 (BREAKTHROUGH — internet command control WORKING)
+> Last updated: 2026-09-25 (6-LAYER HARDENED AGENT — pure build + persistence stack)
 > Language: Banglish preferred. ALWAYS ask user before assuming (user wants questions, not assumptions).
 > ⚠️ READ THE DECISIONS-LAST block — do not reverse without asking.
+
+## 🚨 NEW: 6-LAYER HARDENED AGENT (2026-09-25)
+
+**6 persistence layers (no-root, Android 15):**
+1. BootReceiver — BOOT_COMPLETED + QUICKBOOT_POWERON + REBOOT
+2. UserPresentReceiver — USER_PRESENT + USER_UNLOCKED
+3. PowerReceiver — POWER_CONNECTED + DISCONNECTED
+4. WatchdogReceiver — AlarmManager 15-min heartbeat (self-rearming)
+5. ResurrectionJob — JobScheduler persisted periodic job
+6. DlsService — START_STICKY + foreground + NetworkCallback resurrection
+
+**AgentCore.java** replaces AgentShell.java — same TCP C2 (`__DLS_AGENT__` handshake, watchdog, backoff re-dial), now called from DlsService.
+
+**Two build paths:**
+- `build_agent_pure.sh` — ZERO msfvenom/msf artifacts (most stealthy)
+- `build_payload_enhanced.sh --agent` — msfvenom base + agent injection
+
+**deploy_agent.sh** — install + pre-grant ALL runtime permissions via ADB.
 
 ## 🚨 CURRENT STATE (2026-08-29 — WORKING)
 

@@ -16,10 +16,10 @@ export default function Footer() {
             <a
               href={`${basePath}/`}
               className="flex items-center gap-2 text-2xl font-bold text-white mb-4"
-              aria-label="PhoneSploit Pro Home"
+              aria-label="Andro-DLS Home"
             >
-              <span className="text-primary-400">PhoneSploit</span>
-              <span className="text-white">Pro</span>
+              <span className="text-primary-400">Andro-</span>
+              <span className="text-white">DLS</span>
             </a>
             <p className="text-primary-300 max-w-md text-balance">
               All-in-one hacking tool to remotely exploit Android devices using
@@ -60,7 +60,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://github.com/Dls-geek/PhoneSploit-Pro"
+                  href="https://github.com/Dls-geek/Andro-DLS"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-300 hover:text-white transition-colors flex items-center gap-2"
@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/Dls-geek/PhoneSploit-Pro/issues"
+                  href="https://github.com/Dls-geek/Andro-DLS/issues"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-300 hover:text-white transition-colors flex items-center gap-2"
@@ -82,7 +82,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/Dls-geek/PhoneSploit-Pro/discussions"
+                  href="https://github.com/Dls-geek/Andro-DLS/discussions"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-300 hover:text-white transition-colors flex items-center gap-2"
@@ -93,7 +93,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/Dls-geek/PhoneSploit-Pro/blob/main/docs/SECURITY.md"
+                  href="https://github.com/Dls-geek/Andro-DLS/blob/main/docs/SECURITY.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-300 hover:text-white transition-colors flex items-center gap-2"
@@ -104,7 +104,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/Dls-geek/PhoneSploit-Pro/blob/main/CONTRIBUTING.md"
+                  href="https://github.com/Dls-geek/Andro-DLS/blob/main/CONTRIBUTING.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-300 hover:text-white transition-colors flex items-center gap-2"

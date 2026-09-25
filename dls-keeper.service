@@ -5,8 +5,8 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/div-admin/geek>div/tools-haydra/PhoneSploit-Pro
-ExecStart=/home/div-admin/.venv/bin/python /home/div-admin/geek>div/tools-haydra/PhoneSploit-Pro/modules/keeper.py daemon
+WorkingDirectory=/home/div-admin/geek-div/tools-haydra/Andro-DLS
+ExecStart=/home/div-admin/.venv/bin/python /home/div-admin/geek-div/tools-haydra/Andro-DLS/modules/keeper.py daemon
 Restart=always
 RestartSec=5
 Environment=DLS_LPORT=4445

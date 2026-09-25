@@ -28,14 +28,14 @@ const installSteps: Record<InstallTab, { title: string; description: string; com
       'Internet connection for downloading dependencies',
     ],
     commands: [
-      'git clone https://github.com/Dls-geek/PhoneSploit-Pro.git',
-      'cd PhoneSploit-Pro/',
+      'git clone https://github.com/Dls-geek/Andro-DLS.git',
+      'cd Andro-DLS/',
       'chmod +x install.sh',
       './install.sh',
       'python3 -m venv .venv',
       'source .venv/bin/activate',
       'pip install -r requirements.txt',
-      'python3 phonesploitpro.py',
+      'python3 androdls.py',
     ],
   },
   windows: {
@@ -48,20 +48,20 @@ const installSteps: Record<InstallTab, { title: string; description: string; com
       'Manual ADB/scrcpy setup required',
     ],
     commands: [
-      'git clone https://github.com/Dls-geek/PhoneSploit-Pro.git',
-      'cd PhoneSploit-Pro',
+      'git clone https://github.com/Dls-geek/Andro-DLS.git',
+      'cd Andro-DLS',
       'Set-ExecutionPolicy -Scope Process Bypass',
       '.\\install.ps1',
       'python -m venv .venv',
       '.\\.venv\\Scripts\\activate',
       'pip install -r requirements.txt',
       '# Download platform-tools & scrcpy manually, copy to project folder',
-      'python phonesploitpro.py',
+      'python androdls.py',
     ],
   },
   termux: {
     title: 'Termux (Android) Installation',
-    description: 'Run PhoneSploit Pro directly on your Android device',
+    description: 'Run Andro-DLS directly on your Android device',
     prerequisites: [
       'Termux app (from F-Droid recommended)',
       'Termux:API addon for device access',
@@ -72,14 +72,14 @@ const installSteps: Record<InstallTab, { title: string; description: string; com
       'pkg update && pkg upgrade',
       'pkg install python git nmap',
       'pkg install android-tools  # for ADB',
-      'git clone https://github.com/Dls-geek/PhoneSploit-Pro.git',
-      'cd PhoneSploit-Pro',
+      'git clone https://github.com/Dls-geek/Andro-DLS.git',
+      'cd Andro-DLS',
       'chmod +x install.sh',
       './install.sh',
       'python -m venv .venv',
       'source .venv/bin/activate',
       'pip install -r requirements.txt',
-      'python phonesploitpro.py',
+      'python androdls.py',
     ],
   },
 }
@@ -215,7 +215,7 @@ export default function Install() {
                 </p>
                 <div className="mt-3 flex gap-3">
                   <a
-                    href="https://github.com/Dls-geek/PhoneSploit-Pro"
+                    href="https://github.com/Dls-geek/Andro-DLS"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-secondary text-sm"
@@ -233,7 +233,7 @@ export default function Install() {
 
       <div className="mt-12 text-center">
         <p className="text-primary-400 mb-4">
-          Need help? <a href="https://github.com/Dls-geek/PhoneSploit-Pro/issues" target="_blank" rel="noopener noreferrer" className="text-primary-300 hover:text-white underline">Open an issue</a> or check the <a href="https://github.com/Dls-geek/PhoneSploit-Pro/wiki" target="_blank" rel="noopener noreferrer" className="text-primary-300 hover:text-white underline">Wiki</a>
+          Need help? <a href="https://github.com/Dls-geek/Andro-DLS/issues" target="_blank" rel="noopener noreferrer" className="text-primary-300 hover:text-white underline">Open an issue</a> or check the <a href="https://github.com/Dls-geek/Andro-DLS/wiki" target="_blank" rel="noopener noreferrer" className="text-primary-300 hover:text-white underline">Wiki</a>
         </p>
       </div>
     </Section>

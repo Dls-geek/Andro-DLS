@@ -1,4 +1,4 @@
-# PhoneSploit-Pro (Dls-geek fork) — Python dependencies
+# Andro-DLS (Dls-geek fork) — Python dependencies
 # Python 3.10+ required
 #
 # Core:

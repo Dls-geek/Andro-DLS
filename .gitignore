@@ -2,29 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-parts/
-sdist/
-var/
-wheels/
 *.egg-info/
-.installed.cfg
-*.egg
 .pytest_cache/
 .coverage
-htmlcov/
-.tox/
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.pyre/
 
 # Virtual environments
 .venv/
@@ -32,7 +12,19 @@ venv/
 ENV/
 env/
 
-# IDE
+# Java
+*.class
+
+# Build artifacts
+.payload-build/
+
+# APKs: ignore throwaway test builds, keep payload releases
+test*.apk
+!payload-*.apk
+
+# Signing / IDE
+*.idsig
+debug.keystore
 .idea/
 .vscode/
 .cursor/
@@ -45,22 +37,12 @@ Thumbs.db
 
 # Project specific
 Downloaded-Files/
-test.apk
-test.py
-hidden.txt
-# APKs: ignore throwaway test builds, keep payload releases
-test*.apk
-test-*.apk
-# but DO commit built payloads (payload-*.apk) for reproducibility
-!payload-*.apk
+c2_log.json
 
 # Node (for landing page)
 landing/node_modules/
 landing/.next/
 landing/out/
-landing/*.log
-landing/.turbo/
-landing/.vercel
 
 # Logs
 *.log
@@ -76,9 +58,4 @@ yarn-error.log*
 # Testing
 coverage/
 .nyc_output/
-# Payload build artifacts / signing
-.payload-build/
-*.idsig
-debug.keystore
-# Java compiled artifacts (never commit)
-*.class
+god phone taker/

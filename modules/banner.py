@@ -1,9 +1,9 @@
 """
     COPYRIGHT DISCLAIMER
 
-    Script : PhoneSploit Pro - All in One Android Hacking ADB Toolkit
+    Script : Andro-DLS - All in One Android Hacking ADB Toolkit
 
-    Copyright (C) 2026  Azeem Idrisi (github.com/AzeemIdrisi)
+    Copyright (C) 2026  Khurshid Jhon (github.com/Dls-geek)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,12 +17,6 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-    Forking and modifying are allowed, but credit must be given to the
-    original developer, [Azeem Idrisi (github.com/AzeemIdrisi)], and copying the code
-    is not permitted without permission.
-
-    For any queries, open an issue at : https://github.com/Dls-geek/PhoneSploit-Pro/issues
 """
 
 version = "v2.1.1"
@@ -51,7 +45,7 @@ banner2 = """
         ░█─── ▀──▀ ▀▀▀▀ ▀──▀ ▀▀▀ ░█▄▄▄█ █▀▀▀ ▀▀▀ ▀▀▀▀ ▀▀▀ ──▀── 　 ░█─── ▀─▀▀ ▀▀▀▀
 
 
-            [red]{version}[/red]            [white]By github.com/Dls-geek[/white]
+            [red]{version}[/red]            [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner3 = """
@@ -59,7 +53,7 @@ banner3 = """
         █▀▀ █▀█ █▄█ █░▀█ ██▄ ▄█ █▀▀ █▄▄ █▄█ █ ░█░   █▀▀ █▀▄ █▄█
 
 
-            [red]{version}[/red]             [white]By github.com/Dls-geek[/white]
+            [red]{version}[/red]             [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner4 = """
@@ -71,7 +65,7 @@ banner4 = """
                   \\/            \\/     \\/        \\/ |__|
 
 
-        [red]{version}[/red]                             [white]By github.com/Dls-geek[/white]
+        [red]{version}[/red]                             [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner5 = """
@@ -81,7 +75,7 @@ banner5 = """
     /_/  /_//_/\\___/_//_/\\__/___/ .__/_/\\___/_/\\__/  /_/  /_/  \\___/
                                /_/
 
-        [red]{version}[/red]        [white]By github.com/Dls-geek[/white]
+        [red]{version}[/red]        [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner6 = """
@@ -106,7 +100,7 @@ banner10 = """
                                                          \\ \\_\\
                                                           \\/_/
 
-            [red]{version}[/red]                                [white]By github.com/Dls-geek[/white]
+            [red]{version}[/red]                                [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner11 = """
@@ -118,7 +112,7 @@ banner11 = """
                                             /_/
 
 
-            [red]{version}[/red]                            [white]By github.com/Dls-geek[/white]
+            [red]{version}[/red]                            [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner12 = """
@@ -127,7 +121,7 @@ banner12 = """
         ▒█░░░ ▀░░▀ ▀▀▀▀ ▀░░▀ ▀▀▀ ▒█▄▄▄█ █▀▀▀ ▀▀▀ ▀▀▀▀ ▀▀▀ ░░▀░░ 　 ▒█░░░ ▀░▀▀ ▀▀▀▀
 
 
-            [red]{version}[/red]                            [white]By github.com/Dls-geek[/white]
+            [red]{version}[/red]                            [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
 banner_list = [

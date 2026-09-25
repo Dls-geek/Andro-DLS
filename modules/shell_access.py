@@ -2,7 +2,7 @@
 
 Listener binds a TCP port; the Android payload (android/shell/reverse_tcp)
 connects back. We then provide an interactive shell (or one-shot commands)
-directly in the PhoneSploit CLI. No Metasploit needed.
+directly in the Andro-DLS CLI. No Metasploit needed.
 
 Usage (from CLI): option `Full Access` → auto pipeline → shell
 Direct:  python -m modules.shell_access listen 127.0.0.1 4444

@@ -35,10 +35,10 @@ over the internet tunnel (portmap), and `Metasploit`-style staging.
 
 This tool can automatically **create**, **install**, and **run** a payload on the target device using **Metasploit-Framework** and **ADB** to take full control of the Android device in one click if the device has an open ADB port on `TCP 5555`.
 
-The goal of this project is to make penetration testing and vulnerability assessment on Android devices easy. You no longer need to memorize commands and arguments—PhoneSploit Pro does it for you. Using this tool, you can test the security of your Android devices easily.
+The goal of this project is to make penetration testing and vulnerability assessment on Android devices easy. You no longer need to memorize commands and arguments—Andro-DLS does it for you. Using this tool, you can test the security of your Android devices easily.
 
 > [!TIP]
-> **PhoneSploit Pro** can also be used as a complete ADB toolkit to perform various operations on Android devices over Wi‑Fi as well as USB.
+> **Andro-DLS** can also be used as a complete ADB toolkit to perform various operations on Android devices over Wi‑Fi as well as USB.
 
 ---
 
@@ -157,7 +157,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 To install specific tools only: `.\install.ps1 -Components adb,nmap,pip`  
 For per-component prompts: `.\install.ps1 -Interactive`
 
-### From PhoneSploit Pro
+### From Andro-DLS
 
 If a dependency is missing, the program shows a **Missing Dependencies** warning. Press **`I`** to run the installer, **`Y`** to continue anyway, or **`N`** to exit.
 
@@ -166,15 +166,15 @@ If a dependency is missing, the program shows a **Missing Dependencies** warning
 ## Getting started
 
 > [!IMPORTANT]
-> **PhoneSploit Pro** requires Python version **3.10 or higher**. Please update Python before running the program.
+> **Andro-DLS** requires Python version **3.10 or higher**. Please update Python before running the program.
 
 ### Linux and macOS
 
 Make sure all [required](#requirements) software is installed.
 
 ```
-git clone https://github.com/Dls-geek/PhoneSploit-Pro.git
-cd PhoneSploit-Pro/
+git clone https://github.com/Dls-geek/Andro-DLS.git
+cd Andro-DLS/
 ```
 
 ```
@@ -184,7 +184,7 @@ pip install -r requirements.txt
 ```
 
 ```
-python3 phonesploitpro.py
+python3 androdls.py
 ```
 
 > [!TIP]
@@ -195,8 +195,8 @@ python3 phonesploitpro.py
 Make sure all [required](#requirements) software is installed.
 
 ```
-git clone https://github.com/Dls-geek/PhoneSploit-Pro.git
-cd PhoneSploit-Pro/
+git clone https://github.com/Dls-geek/Andro-DLS.git
+cd Andro-DLS/
 ```
 
 ```
@@ -207,10 +207,10 @@ pip install -r requirements.txt
 
 1. Download and extract the latest `platform-tools` from [here](https://developer.android.com/studio/releases/platform-tools.html#downloads).
 
-2. Copy all files from the extracted `platform-tools` or `adb` directory into the **PhoneSploit-Pro** directory, then run:
+2. Copy all files from the extracted `platform-tools` or `adb` directory into the **Andro-DLS** directory, then run:
 
 ```
-python phonesploitpro.py
+python androdls.py
 ```
 
 ---
@@ -255,12 +255,12 @@ adb tcpip 5555
 7. You can now connect the Android phone to the computer over Wi‑Fi using `adb`.
 8. Disconnect the USB cable.
 9. Go to `Settings` > `About Phone` > `Status` > `IP address` and note the phone’s `IP address`.
-10. Run **PhoneSploit Pro**, choose `Connect a device`, and enter the target’s `IP address` to connect over Wi‑Fi.
+10. Run **Andro-DLS**, choose `Connect a device`, and enter the target's `IP address` to connect over Wi‑Fi.
 
 ### Connecting the Android phone the next time
 
 1. Connect your Android device and host computer to the same Wi‑Fi network.
-2. Run **PhoneSploit Pro**, choose `Connect a device`, and enter the target’s `IP address` to connect over Wi‑Fi.
+2. Run **Andro-DLS**, choose `Connect a device`, and enter the target's `IP address` to connect over Wi‑Fi.
 
 ---
 
@@ -278,7 +278,7 @@ This tool is tested on:
 - ✅ Termux (Android)
 
 > [!NOTE]
-> New features are primarily tested on **Linux**, so **Linux** is recommended for running PhoneSploit Pro.
+> New features are primarily tested on **Linux**, so **Linux** is recommended for running Andro-DLS.
 > Some features might not work properly on Windows.
 
 ---
@@ -371,7 +371,7 @@ Or see: [Windows: antivirus and installers](https://docs.metasploit.com/docs/usi
 
 Visit the `scrcpy` GitHub page for the latest installation instructions: [scrcpy — get the app](https://github.com/Genymobile/scrcpy#get-the-app)
 
-**On Windows**: Copy all files from the extracted **scrcpy** folder into the **PhoneSploit-Pro** folder.
+**On Windows**: Copy all files from the extracted **scrcpy** folder into the **Andro-DLS** folder.
 
 > [!IMPORTANT]  
 > If `scrcpy` is not available for your Linux distribution (for example **Kali Linux**), you can install it manually ([Linux guide](https://github.com/Genymobile/scrcpy/blob/master/doc/linux.md))
@@ -505,8 +505,8 @@ Alternative byte-level patch: `python patch_targetsdk.py input.apk output.apk 34
 
 **Dls-geek** - [@Dls-geek](https://github.com/Dls-geek/)
 
-*Forked and modified from the original [PhoneSploit-Pro](https://github.com/AzeemIdrisi/PhoneSploit-Pro) by [Azeem Idrisi](https://github.com/AzeemIdrisi/).*
+*Originally based on [PhoneSploit-Pro](https://github.com/AzeemIdrisi/PhoneSploit-Pro) by [Azeem Idrisi](https://github.com/AzeemIdrisi/).*
 
 <hr>
 
-Copyright © 2026 Dls-geek (github.com/Dls-geek) — original project © Azeem Idrisi ([github.com/AzeemIdrisi](https://github.com/AzeemIdrisi))
+Copyright © 2026 Khurshid Jhon & Dls-geek Team (github.com/Dls-geek)

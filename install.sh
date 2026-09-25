@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PhoneSploit Pro — dependency installer for Unix-like systems (Linux, macOS, Termux).
+# Andro-DLS — dependency installer for Unix-like systems (Linux, macOS, Termux).
 # See README.md for manual steps and supported distributions.
 
 set -euo pipefail
@@ -146,7 +146,7 @@ if [[ "$(uname -s 2>/dev/null)" = "Darwin" ]]; then
 fi
 
 say ""
-say "PhoneSploit Pro — dependency installer"
+say "Andro-DLS — dependency installer"
 say "Detected environment: ${PRETTY_OS}"
 say ""
 
@@ -411,5 +411,5 @@ say ""
 say "Done. If commands are still not found, open a new terminal or log out and back in (PATH updates)."
 say "Activate the virtual environment and run:"
 say "  source .venv/bin/activate"
-say "  python3 phonesploitpro.py"
+say "  python3 androdls.py"
 say ""

@@ -16,21 +16,21 @@ type CTAButtonProps = {
 
 const ctaButtons: CTAButtonProps[] = [
   {
-    href: "https://github.com/Dls-geek/PhoneSploit-Pro",
+    href: "https://github.com/Dls-geek/Andro-DLS",
     label: "View on GitHub",
     icon: GitHubIcon,
     external: true,
     variant: "primary",
   },
   {
-    href: "https://github.com/Dls-geek/PhoneSploit-Pro/issues/new/choose",
+    href: "https://github.com/Dls-geek/Andro-DLS/issues/new/choose",
     label: "Report Issue",
     icon: AlertTriangle,
     external: true,
     variant: "secondary",
   },
   {
-    href: "https://github.com/Dls-geek/PhoneSploit-Pro/discussions",
+    href: "https://github.com/Dls-geek/Andro-DLS/discussions",
     label: "Discussions",
     icon: MessageSquare,
     external: true,
@@ -98,7 +98,7 @@ export default function CTABanner() {
             Ready to Test Your Android Security?
           </h2>
           <p className="section-subtitle mx-auto">
-            Join thousands of security researchers using PhoneSploit Pro. Star
+            Join thousands of security researchers using Andro-DLS. Star
             the repo, report issues, or start a discussion.
           </p>
 

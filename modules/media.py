@@ -384,7 +384,7 @@ def camera_live(config: AppConfig) -> None:
         f"--capture-orientation={orientation}",
         "--no-audio",
         "--no-control",
-        f"--window-title=PhoneSploit Camera Live ({facing})",
+        f"--window-title=Andro-DLS Camera Live ({facing})",
     ]
 
     if mode in ("", "1"):

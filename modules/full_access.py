@@ -3,7 +3,7 @@
 A single menu choice that wires the whole chain: pick the connected device,
 optionally open a public tunnel, build+install the FGS payload, then drop into
 a pure-Python interactive shell. No Metasploit required. Exception-safe: a
-failure prints a friendly message and returns to the PhoneSploit menu.
+failure prints a friendly message and returns to the Andro-DLS menu.
 """
 from __future__ import annotations
 

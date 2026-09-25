@@ -94,7 +94,7 @@ def _run_dependency_installer(config: AppConfig, component_keys: list[str]) -> N
         )
 
     console.print(
-        "[dim]If tools are still not detected, open a new terminal and run PhoneSploit Pro again "
+        "[dim]If tools are still not detected, open a new terminal and run Andro-DLS again "
         "(PATH may need a refresh).[/dim]"
     )
 
@@ -185,11 +185,11 @@ def change_page(config: AppConfig, direction: str) -> None:
 
 def update_me(config: AppConfig) -> None:
     if not confirm(
-        "Run [cyan]git fetch[/cyan] and [cyan]git rebase[/cyan] to update PhoneSploit-Pro? "
+        "Run [cyan]git fetch[/cyan] and [cyan]git rebase[/cyan] to update Andro-DLS? "
         "Uncommitted local changes may conflict or be lost."
     ):
         return
-    console.print("[yellow]Updating PhoneSploit-Pro...[/yellow]")
+    console.print("[yellow]Updating Andro-DLS...[/yellow]")
     console.print("[green]Fetching latest updates from GitHub...[/green]")
     fetch = subprocess.run(
         ["git", "fetch"],
@@ -217,7 +217,7 @@ def update_me(config: AppConfig) -> None:
         )
         return
 
-    console.print("[cyan]Please restart PhoneSploit-Pro.[/cyan]")
+    console.print("[cyan]Please restart Andro-DLS.[/cyan]")
     config.run = False
 
 

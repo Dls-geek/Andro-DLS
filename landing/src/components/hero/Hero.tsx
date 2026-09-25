@@ -13,7 +13,7 @@ export default function Hero() {
 
   const scrollToGitHub = () => {
     window.open(
-      "https://github.com/Dls-geek/PhoneSploit-Pro",
+      "https://github.com/Dls-geek/Andro-DLS",
       "_blank",
       "noopener,noreferrer",
     );
@@ -40,7 +40,7 @@ export default function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
             </span>
-            PhoneSploit Pro {repoInfo.version} Released
+            Andro-DLS {repoInfo.version} Released
           </motion.div>
 
           <motion.h1
@@ -49,8 +49,8 @@ export default function Hero() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-balance"
           >
-            <span className="text-white">PhoneSploit </span>
-            <span className="text-primary-400">Pro</span>
+            <span className="text-white">Andro-</span>
+            <span className="text-primary-400">DLS</span>
           </motion.h1>
 
           <motion.p

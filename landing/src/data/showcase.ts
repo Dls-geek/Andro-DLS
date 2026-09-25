@@ -8,17 +8,17 @@ export interface ShowcaseVideo {
 export const showcaseVideos: ShowcaseVideo[] = [
   {
     id: "demo-1",
-    title: "PhoneSploit Pro — Device Exploitation Demo",
+    title: "Andro-DLS — Device Exploitation Demo",
     videoId: "nPcq7zsgeKw",
   },
   {
     id: "demo-2",
-    title: "PhoneSploit Pro — Control & Data Extraction Demo",
+    title: "Andro-DLS — Control & Data Extraction Demo",
     videoId: "R46HFvBMtJM",
   },
   {
     id: "demo-3",
-    title: "PhoneSploit Pro — Overview",
+    title: "Andro-DLS — Overview",
     videoId: "xDfHKB3NdTg",
   },
 ];

@@ -71,7 +71,7 @@ export default function Features() {
           And many more features... <span className="text-primary-500">60+ total</span>
         </p>
         <a
-          href="https://github.com/Dls-geek/PhoneSploit-Pro#features"
+          href="https://github.com/Dls-geek/Andro-DLS#features"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 font-medium transition-colors"

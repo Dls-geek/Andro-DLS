@@ -1,8 +1,8 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-const GITHUB_PAGES_BASE_PATH = '/PhoneSploit-Pro'
-const GITHUB_PAGES_SITE_URL = 'https://dls-geek.github.io/PhoneSploit-Pro'
+const GITHUB_PAGES_BASE_PATH = '/Andro-DLS'
+const GITHUB_PAGES_SITE_URL = 'https://dls-geek.github.io/Andro-DLS'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

@@ -81,7 +81,7 @@ export default function Compatibility() {
                 may not work correctly or require manual setup. For production use, Linux (Ubuntu, Kali, Fedora, Arch) or Termux is strongly recommended.
               </p>
               <p className="mt-2 text-sm text-primary-400">
-                New features are primarily tested on Linux. See the <a href="https://github.com/Dls-geek/PhoneSploit-Pro#compatibility" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-300 flex items-center gap-1">README<ExternalLink className="h-3 w-3" aria-hidden="true" /></a> for detailed compatibility notes.
+                New features are primarily tested on Linux. See the <a href="https://github.com/Dls-geek/Andro-DLS#compatibility" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-300 flex items-center gap-1">README<ExternalLink className="h-3 w-3" aria-hidden="true" /></a> for detailed compatibility notes.
               </p>
             </div>
           </div>

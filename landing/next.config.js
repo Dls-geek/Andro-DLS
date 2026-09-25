@@ -4,8 +4,8 @@ const isGitHubPages = process.env.GITHUB_PAGES === '1'
 const nextConfig = {
   ...(isGitHubPages && {
     output: 'export',
-    basePath: '/PhoneSploit-Pro',
-    assetPrefix: '/PhoneSploit-Pro/',
+    basePath: '/Andro-DLS',
+    assetPrefix: '/Andro-DLS/',
   }),
   images: { unoptimized: true },
   trailingSlash: true,
