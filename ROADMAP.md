@@ -1,5 +1,24 @@
 # Andro-DLS — Phase Roadmap
 
+## Quick USB → Wireless Workflow
+
+```bash
+# 1. Connect phone via USB cable
+# 2. Switch to wireless ADB
+adb tcpip 5555
+
+# 3. Find phone IP
+adb shell ip -f inet addr show wlan0 | grep inet
+
+# 4. Connect wirelessly (cable remove kora jabe)
+adb connect <PHONE_IP>:5555
+
+# 5. Done — all operations over WiFi now
+adb devices  # shows phone on :5555
+```
+
+Now everything works wireless: install APK, grant permissions, pull files, run agent, screenshot — no cable needed.
+
 ## Global Architecture
 
 ```
