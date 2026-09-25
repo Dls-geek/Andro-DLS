@@ -3,7 +3,6 @@
 
 version = "v3.0.0"
 
-# ─── Main Menu (Page 0) ──────────────────────────────────────────────────
 menu1 = """
     [bold yellow]── ANDRO-DLS · PHONE CONTROL ───────────────────────────────────[/bold yellow]
 
@@ -18,7 +17,7 @@ menu2 = """
     [bold cyan]── CONNECTED DEVICES ───────────────────────────────────────────[/bold cyan]
 
     [white]1.[/white] [green]▸ LIST ALL DEVICES[/green]       [dim]USB + WiFi + saved[/dim]
-    [white]2.[/white] [green] CONNECT TO DEVICE[/green]     [dim]pick device → connect[/dim]
+    [white]2.[/white] [green]▸ CONNECT TO DEVICE[/green]     [dim]pick device → connect[/dim]
     [white]3.[/white] [green]▸ RECONNECT LAST[/green]        [dim]quick reconnect to last device[/dim]
     [white]4.[/white] [green]▸ DEVICE INFO[/green]           [dim]model, Android ver, IP, battery[/dim]
     [white]5.[/white] [green]▸ PULL APKs[/green]             [dim]extract all installed apps[/dim]
@@ -30,8 +29,8 @@ menu2 = """
 menu3 = """
     [bold magenta]── BUILD AGENT ───────────────────────────────────────────────[/bold magenta]
 
-    [white]1.[/white] [green] PURE BUILD[/green]            [dim]no msfvenom · most stealthy[/dim]
-    [white]2.[/white] [green] ENHANCED BUILD[/green]        [dim]msfvenom base + 6-layer injection[/dim]
+    [white]1.[/white] [green]▸ PURE BUILD[/green]            [dim]no msfvenom · most stealthy[/dim]
+    [white]2.[/white] [green]▸ ENHANCED BUILD[/green]        [dim]msfvenom base + 6-layer injection[/dim]
     [white]3.[/white] [green]▸ TROJAN BIND[/green]           [dim]inject agent into legit APK[/dim]
     [white]4.[/white] [green]▸ WORK PROFILE DEPLOY[/green]   [dim]hidden profile · cross-resurrection[/dim]
     [white]5.[/white] [green]▸ DEPLOY TO DEVICE[/green]      [dim]install + grant perms + launch[/dim]
@@ -54,8 +53,8 @@ menu5 = """
     [bold blue]── DATA ACCESS ─────────────────────────────────────────────────[/bold blue]
 
     [white]1.[/white] [green]▸ SCREENSHOT[/green]            [dim]capture screen[/dim]
-    [white]2.[/white] [green] SCREEN RECORD[/green]         [dim]record screen[/dim]
-    [white]3.[/white] [green]▸ SMS DUMP[/green]              [dim]read all SMS messages[/dim]
+    [white]2.[/white] [green]▸ SCREEN RECORD[/green]         [dim]record screen[/dim]
+    [white]3.[/white] [green] SMS DUMP[/green]              [dim]read all SMS messages[/dim]
     [white]4.[/white] [green]▸ CONTACTS DUMP[/green]         [dim]read all contacts[/dim]
     [white]5.[/white] [green]▸ CALL LOGS[/green]             [dim]read call history[/dim]
     [white]6.[/white] [green]▸ LOCATION[/green]              [dim]get GPS location[/dim]
@@ -73,7 +72,7 @@ menu5 = """
 menu6 = """
     [bold green]── SHELL ACCESS ────────────────────────────────────────────────[/bold green]
 
-    [white]1.[/white] [green]▸ INTERACTIVE SHELL[/green]     [dim]direct shell on device[/dim]
+    [white]1.[/white] [green] INTERACTIVE SHELL[/green]     [dim]direct shell on device[/dim]
     [white]2.[/white] [green]▸ KEEPER SHELL[/green]          [dim]shell via C2 tunnel[/dim]
     [white]3.[/white] [green]▸ RUN COMMAND[/green]           [dim]one-shot command[/dim]
     [white]4.[/white] [green]▸ MIRROR SCREEN[/green]         [dim]scrcpy live mirror + control[/dim]
@@ -83,95 +82,34 @@ menu6 = """
 
 menu = [menu1, menu2, menu3, menu4, menu5, menu6]
 
-# ─── Banners ──────────────────────────────────────────────────────────────
-
-# Note: The PNG banner you shared uses hexagonal block letters that can't
-# be faithfully reproduced in ASCII. This is the cleanest terminal-compatible
-# "Andro-dls" banner. If you want the exact PNG, it would need to be displayed
-# as an image (not in terminal).
-
-banner1 = """
-  _    _ _   _ _____  ___  __   _ ______ _____ ______   _ _____ ______
- | |  | | \ | |  _  |/ _ \ / _| | ||  _  \  _  ||  _  \ | |  ___|  _  \
- | |  | |  \| | | | / /_\ \ |_  | || | | | | | || | | | | | |__ | | | |
- | |/\| | . ` | | | |  _  |  _| | || | | | | | || | | | | |  __|| | | |
- \  /\  / |\  | |/ /| | | | |   | || |/ /\ \_/ /| |/ /  | | |___| |/ /
-  \/  \/\_| \_/|___/ \_| |_/|   |_||___/  \___/ |___/   \_\____/|___/
+banner = """
+     /  _  \   ____    __| _/______  ____             __| _/|  |   ______
+    /  /_\  \ /    \  / __ |\_  __ \/  _ \   ______  / __ | |  |  /  ___/
+   /    |    \   |  \/ /_/ | |  | \(  <_> ) /_____/ / /_/ | |  |__\___ \\
+   \____|__  /___|  /\____ | |__|   \____/          \____ | |____/____  >
+           \/     \/      \/                             \/           \/
 
 
             [red]{version}[/red]                [white]By Khurshid Jhon & Dls-geek Team[/white]
 """.format(version=version)
 
-banner2 = """
-        ███╗   ███╗ ██████╗  ██████╗ ███████╗ █████╗ ██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗
-        ████╗ ████║██═══██╗██╔════╝ ██╔════╝██╔══██╗██║   ██║██║     ██╔══██╗╚══██╔══╝██╔═══██╗██══██╗
-        ██╔██████║██║   ██║██║  ███╗█████╗  ███████║██║   ██║██║     ███████║   ██║   ██║   ██║██████╔╝
-        ██║╚██╔╝██║██║   ██║██║   ██║██╔══╝  ██══██║██║   ██║██║     ██╔══██║   ██║   ██║   ██║██╔══██╗
-        ██║ ╚═╝ ██║██████╝╚██████╗ ███████╗██║  ██║╚██████╔╝███████╗██║  ██║   ██║   ██████╔╝██║  ██║
-        ╚═╝     ╚═╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ═════╝ ╚══════╝╚═╝  ═╝   ╚═╝    ═════╝ ╚═╝  ╚═╝
-
-
-            [red]{version}[/red]            [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner3 = """
-    ██████╗ ███████╗ ██████╗ ██╗███████╗██╗   ██╗██████╗ ███████╗
-    ██╔══██╗██╔════╝██╔═══██╗██║██╔════╝██║   ██║██╔══██╗██╔════╝
-    ██║  ██║█████╗  ██║   ██║██║███████╗██║   ██║██████╔╝█████╗
-    ██║  ██║██╔══╝  ██║   ██║██║╚════██║██║   ██║██══██╗██╔══╝
-    ██████╔╝███████╗██████╔╝██║███████║██████╔╝██║  ██║███████╗
-    ╚═════╝ ╚══════╝ ╚═════╝ ═╝╚══════╝ ═════╝ ╚═╝  ╚═╝╚══════╝
-
-
-            [red]{version}[/red]                [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner4 = """
-        ░█▀█ █──█ █▀█ █▀▄ █▀ ░█▀▀█ █▀█ █── █▀█ ─▀─ █▀▀  ░██ █▀█ █▀█
-        ░█▄▄█ █▀▀█ █──█ █──█ █▀▀ ▀▀▀▄ █──█ █── █──█ ▀█▀ ─█──  ░█▄▄█ █▄ █──█
-        ░█─── ▀──▀ ▀▀▀▀ ──▀ ▀▀ ░█▄▄█ █▀ ▀ ▀▀▀▀  ──▀──  ░█─── ▀─▀▀ ▀▀
-
-
-            [red]{version}[/red]            [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner5 = """
-        ██ █░█ █▀█ █▄░█ █▀ █▀ █▀█ █░░ █▀█ █ ▀█   █▀█ █▀█ ██
-        █▀▀ █▀█ █▄█ █░▀█ ██ ▄█ █ █▄▄ █▄█ █ ░█░   █▀▀ █▀ ██
-
-
-            [red]{version}[/red]             [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner6 = """
-       ___  __                 ____     __     _ __     ___
-      / _ \\/ /  ___  ___  ___ / __/__  / /__  (_) /_   / _ \\_______
-     / ___/ _ \\/ _ \\/ _ \\/ -_)\\ \\/ _ \\/ / _ \\/ / __/  / ___/ __/ _ \\
-    /_/  /_//_/\\___/_//_/\\__/___/ .__/_/\\___/_/\\__/  /_/  /_/  \\___/
-                               /_/
-
-        [red]{version}[/red]        [white]By Khurshid Jhon & Dls-geek Team[/white]
-""".format(version=version)
-
-banner_list = [banner1, banner2, banner3, banner4, banner5, banner6]
-
-# ─── Instructions ──────────────────────────────────────────────────────────
+banner_list = [banner]
 
 instructions_banner = """[cyan]
         ╔══════════════════════════════════════════════════════════╗
-        ║              ANDRO-DLS · QUICK GUIDE                    ║
+        ║              ANDRO-DLS · QUICK GUIDE                    
         ╠══════════════════════════════════════════════════════════╣
         ║  Step 1: USB SETUP (Option 1)                          ║
-            → Connect phone via USB cable                       ║
-        ║    → Enable USB debugging on phone                     
-        ║    → Tool switches phone to wireless ADB               ║
+        ║    → Connect phone via USB cable                       ║
+        ║    → Enable USB debugging on phone                     ║
+            → Tool switches phone to wireless ADB               
         ║    → Remove cable — everything works over WiFi now     ║
-        ║                                                        ║
+        ║                                                        
         ║  Step 2: CONNECTED DEVICES (Option 2)                  ║
         ║    → See all connected devices                         ║
         ║    → Pick device → connect                             ║
         ║    → Pull APKs, grant permissions, manage              ║
-                                                                ║
+        ║                                                        ║
         ║  Step 3: BUILD AGENT (Option 3)                        ║
         ║    → Pure / Enhanced / Trojan Bind                     ║
         ║    → Deploy to device → agent runs hidden              ║
