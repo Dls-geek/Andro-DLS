@@ -9,6 +9,7 @@ from rich.theme import Theme
 
 from modules.config import AppConfig
 
+# ctOS-inspired black/white theme — Watch Dogs aesthetic
 _theme = Theme(
     {
         "info": "cyan",
@@ -16,8 +17,12 @@ _theme = Theme(
         "warning": "bold yellow",
         "error": "bold red",
         "prompt": "bold white",
-        "highlight": "bold cyan",
+        "highlight": "bold white",
         "muted": "dim white",
+        "border": "white",
+        "data": "white",
+        "label": "dim white",
+        "accent": "cyan",
     }
 )
 
@@ -89,14 +94,7 @@ def ensure_config_dir(
     category: str | None = None,
     default: str = "Downloaded-Files",
 ) -> Path:
-    """Resolve a download destination.
-
-    The config location fields act as the base ROOT (default
-    "Downloaded-Files"). A sanitized DEVICE NAME folder is inserted below it
-    (e.g. Downloaded-Files/Infinix_X6880/), then `category` appends a
-    maintained subfolder (e.g. .../Infinix_X6880/Data-Dumps/).
-    Any mid-level folders are created automatically (parents=True).
-    """
+    """Resolve a download destination."""
     val = getattr(config, field)
     if not val:
         val = (
@@ -134,21 +132,14 @@ def print_null_input() -> None:
 
 
 def ask(prompt: str) -> str:
-    """Styled input prompt that survives terminal line editing.
-
-    readline redraws the entire line when you edit (backspace, arrow keys), so
-    the prompt must be handed to readline itself via ``input()`` rather than
-    printed beforehand — otherwise the redraw erases it. GNU readline miscounts
-    the width of ANSI escape codes, so those are wrapped in the ``\\x01`` /
-    ``\\x02`` markers readline ignores when measuring the prompt.
-    """
+    """Styled input prompt that survives terminal line editing."""
     rendered = _render_prompt(prompt)
     if _readline_is_gnu():
         rendered = _wrap_ansi_escapes(rendered)
     try:
         return input(rendered)
     except EOFError:
-        return ""  # stdin closed → treat as empty (menu/loop will exit safely)
+        return ""
 
 
 def _render_prompt(prompt: str) -> str:
@@ -213,11 +204,7 @@ def get_adb_executable() -> str | None:
 
 
 def adb(args: list[str], capture: bool = True) -> subprocess.CompletedProcess:
-    """
-    Run an adb command.
-    - capture=True  → stdout/stderr captured, returned (use for data queries)
-    - capture=False → output streams to terminal (use for interactive commands)
-    """
+    """Run an adb command."""
     if _adb_executable is None:
         return subprocess.CompletedProcess(
             args=[],

