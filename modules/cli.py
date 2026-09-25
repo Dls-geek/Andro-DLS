@@ -16,7 +16,8 @@ from rich.panel import Panel
 from modules import banner, color
 from modules.console import console, ask, confirm, adb, print_error, print_success, print_warning
 from modules.config import AppConfig
-from modules.tools import resolve_external_tools, set_adb_executable
+from modules.tools import resolve_external_tools
+from modules.console import set_adb_executable
 
 
 def _project_root() -> Path:
