@@ -17,14 +17,15 @@ env/
 
 # Build artifacts
 .payload-build/
+.build/
+build/
 
-# APKs: ignore throwaway test builds, keep payload releases
+# APKs: ignore throwaway test builds, keep releases
 test*.apk
-!payload-*.apk
+*.idsig
 
 # Signing / IDE
-*.idsig
-debug.keystore
+payloads/debug.keystore
 .idea/
 .vscode/
 .cursor/
@@ -36,13 +37,13 @@ debug.keystore
 Thumbs.db
 
 # Project specific
-Downloaded-Files/
+exfil-data/
 c2_log.json
 
 # Node (for landing page)
-landing/node_modules/
-landing/.next/
-landing/out/
+tools/landing/node_modules/
+tools/landing/.next/
+tools/landing/out/
 
 # Logs
 *.log
