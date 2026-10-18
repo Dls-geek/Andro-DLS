@@ -7,7 +7,7 @@ from typing import Literal
 from rich.console import Console
 from rich.theme import Theme
 
-from control_room.config import AppConfig
+from control_room.core.config import AppConfig
 
 # ctOS-inspired black/white theme — Watch Dogs aesthetic
 _theme = Theme(

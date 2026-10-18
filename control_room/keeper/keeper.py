@@ -274,7 +274,7 @@ def listener_loop(lport: int, stop: threading.Event) -> None:
 # ---------------------------------------------------------------------------
 
 def tunnel_loop(stop: threading.Event) -> None:
-    from modules import tunnel as tmod
+    from control_room.keeper import tunnel as tmod
 
     lport = int(STATE.get("lport") or 4445)
     while not stop.is_set():

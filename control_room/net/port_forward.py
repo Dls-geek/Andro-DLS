@@ -2,8 +2,8 @@
 
 import subprocess
 
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     print_error,
     print_success,

@@ -2,10 +2,10 @@ import subprocess
 import time
 from pathlib import Path
 
-from control_room.config import AppConfig
-from modules import banner
-from control_room.console import console, confirm, adb, task_status, get_adb_executable, ask
-from control_room.connection import get_ip_address, is_valid_ipv4
+from control_room.core.config import AppConfig
+from control_room.cli import banner
+from control_room.cli.console import console, confirm, adb, task_status, get_adb_executable, ask
+from control_room.core.connection import get_ip_address, is_valid_ipv4
 
 
 def _modernize_apk(

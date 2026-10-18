@@ -11,7 +11,7 @@ import base64
 import time
 from pathlib import Path
 
-from control_room.keeper import ctl
+from control_room.keeper.keeper import ctl
 
 REPO = Path(__file__).resolve().parent.parent
 

@@ -8,7 +8,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from control_room.config import AppConfig
+from control_room.core.config import AppConfig
 
 
 def _which(name: str) -> str | None:
@@ -73,7 +73,7 @@ def resolve_external_tools(config: AppConfig) -> None:
 def require_adb(config: AppConfig) -> bool:
     if config.adb_path:
         return True
-    from control_room.console import print_error
+    from control_room.cli.console import print_error
 
     print_error(
         "ADB is not installed or not on PATH. "
@@ -85,7 +85,7 @@ def require_adb(config: AppConfig) -> bool:
 def require_scrcpy(config: AppConfig) -> bool:
     if config.scrcpy_path:
         return True
-    from control_room.console import print_error
+    from control_room.cli.console import print_error
 
     print_error("Scrcpy is not installed or not on PATH. Install scrcpy and try again.")
     return False
@@ -94,7 +94,7 @@ def require_scrcpy(config: AppConfig) -> bool:
 def require_nmap(config: AppConfig) -> bool:
     if config.nmap_path:
         return True
-    from control_room.console import print_error
+    from control_room.cli.console import print_error
 
     print_error("Nmap is not installed or not on PATH. Install nmap and try again.")
     return False
@@ -103,7 +103,7 @@ def require_nmap(config: AppConfig) -> bool:
 def require_metasploit(config: AppConfig) -> bool:
     if config.msfvenom_path and config.msfconsole_path:
         return True
-    from control_room.console import print_error
+    from control_room.cli.console import print_error
 
     print_error(
         "Metasploit-Framework (msfvenom and msfconsole) not found on PATH. "

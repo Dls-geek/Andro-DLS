@@ -18,9 +18,9 @@ from pathlib import Path
 
 from rich.panel import Panel
 
-from modules import remoteshell
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.ops import remoteshell
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     ask,
     confirm,
@@ -40,7 +40,7 @@ PKG = remoteshell.PKG
 
 def keeper_status(timeout: float = 4.0) -> dict | None:
     try:
-        from control_room.keeper import ctl
+        from control_room.keeper.keeper import ctl
 
         return ctl({"cmd": "status"}, timeout=timeout)
     except Exception:
@@ -145,7 +145,7 @@ def auto_connect(config: AppConfig) -> None:
         print_success(f"bridge up: {serial}  (cable can be unplugged now)")
 
     # ---- 3. identify + authorize ------------------------------------------
-    from control_room.devices import add_or_update, device_info
+    from control_room.core.devices import add_or_update, device_info
 
     info = device_info(serial)
     name = info.get("name") or serial
@@ -162,7 +162,7 @@ def auto_connect(config: AppConfig) -> None:
             "[bold]No permanent tunnel configured.[/bold] "
             "Set up portmap.io NOW so this phone reaches you from ANY network? (Y/N)"
         ):
-            from control_room.tunnel import portmap_setup_interactive
+            from control_room.keeper.tunnel import portmap_setup_interactive
 
             pm = portmap_setup_interactive()
             fresh_pm = pm is not None
@@ -239,7 +239,7 @@ def auto_connect(config: AppConfig) -> None:
 # --------------------------------------------------------------------------
 
 def reconnect(config: AppConfig) -> None:
-    from control_room.devices import load_store
+    from control_room.core.devices import load_store
 
     console.print("\n[bold cyan]▸ RECONNECT[/bold cyan]  your saved phone → live shell\n")
     devs = load_store()
@@ -297,7 +297,7 @@ def reconnect(config: AppConfig) -> None:
 
 def portmap_setup(config: AppConfig) -> None:
     console.print("\n[bold cyan]▸ PORTMAP SETUP[/bold cyan]  permanent tunnel (one-time)\n")
-    from control_room.tunnel import portmap_setup_interactive
+    from control_room.keeper.tunnel import portmap_setup_interactive
 
     cfg = portmap_setup_interactive()
     if not cfg:
@@ -316,7 +316,7 @@ def portmap_setup(config: AppConfig) -> None:
 # --------------------------------------------------------------------------
 
 def devices_brief() -> None:
-    from control_room.devices import load_store
+    from control_room.core.devices import load_store
 
     devs = load_store()
     if not devs:

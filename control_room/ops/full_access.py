@@ -7,9 +7,9 @@ failure prints a friendly message and returns to the Andro-DLS menu.
 """
 from __future__ import annotations
 
-from modules import remoteshell
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.ops import remoteshell
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     print_error,
     print_success,

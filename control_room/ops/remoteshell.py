@@ -15,7 +15,7 @@ import subprocess
 import time
 from pathlib import Path
 
-from control_room.console import console, adb, adb_output, print_error, print_success, print_warning
+from control_room.cli.console import console, adb, adb_output, print_error, print_success, print_warning
 
 PKG = "com.metasploit.stage"
 
@@ -205,7 +205,7 @@ def open_tunnel(provider: str | None = None):
     """Start a public tunnel to localhost:LPORT; provider None → pick best
     (portmap if configured — permanent — else pinggy/ngrok)."""
     try:
-        from modules import tunnel
+        from control_room.keeper import tunnel
     except Exception as e:
         print_warning(f"tunnel module unavailable: {e}")
         return None
@@ -225,7 +225,7 @@ def open_tunnel(provider: str | None = None):
 
 def stop_tunnel(t) -> None:
     try:
-        from modules import tunnel
+        from control_room.keeper import tunnel
 
         tunnel.stop_tunnel(t)
     except Exception:
@@ -255,7 +255,7 @@ def capture_stage() -> Path | None:
 
 def run_shell(timeout: int = 120) -> None:
     """Bind the pure-Python listener and serve one interactive shell."""
-    from modules import shell_access
+    from control_room.ops import shell_access
 
     stage = capture_stage()
     try:

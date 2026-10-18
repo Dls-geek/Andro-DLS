@@ -8,9 +8,9 @@ from pathlib import Path
 
 from rich.table import Table
 
-from control_room.app_manager import select_package_from_list
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.ops.app_manager import select_package_from_list
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     print_error,
     print_success,

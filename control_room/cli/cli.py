@@ -19,11 +19,11 @@ from rich.table import Table
 from rich.text import Text
 from rich.columns import Columns
 
-from modules import banner
-from control_room.console import console, ask, confirm, adb, print_error, print_success, print_warning
-from control_room.config import AppConfig
-from control_room.tools import resolve_external_tools
-from control_room.console import set_adb_executable
+from control_room.cli import banner
+from control_room.cli.console import console, ask, confirm, adb, print_error, print_success, print_warning
+from control_room.core.config import AppConfig
+from control_room.cli.tools import resolve_external_tools
+from control_room.cli.console import set_adb_executable
 
 
 def _project_root() -> Path:
@@ -95,7 +95,7 @@ def load_devices():
 
 def get_live_devices():
     """Return list of live device serials."""
-    from control_room.console import adb_output
+    from control_room.cli.console import adb_output
     out = adb_output("devices")
     if not out:
         return []
@@ -366,7 +366,7 @@ def pull_apks(config: AppConfig):
     if rc != 0 or len([l for l in out.split("\n")[1:] if "device" in l]) == 0:
         console.print("[dim]no device[/dim]")
         return
-    from control_room.usb_apk_extractor import run_extractor
+    from control_room.android.usb_apk_extractor import run_extractor
     run_extractor()
 
 
@@ -377,7 +377,7 @@ def grant_permissions(config: AppConfig):
     if rc != 0 or len([l for l in out.split("\n")[1:] if "device" in l]) == 0:
         console.print("[dim]no device[/dim]")
         return
-    from control_room.usb_permissions import grant_permissions as gp
+    from control_room.android.usb_permissions import grant_permissions as gp
     count = gp(PKG, "all")
     if count > 0:
         adb("shell", "dumpsys", "deviceidle", "whitelist", f"+{PKG}")
@@ -469,7 +469,7 @@ def deploy_work_profile(config: AppConfig):
     if not apk or not Path(apk).exists():
         print_error("no APK")
         return
-    from control_room.work_profile import deploy
+    from control_room.android.work_profile import deploy
     deploy(apk)
 
 

@@ -19,8 +19,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from modules import console
-from control_room.cli import run
+from control_room.cli import console
+from control_room.cli.cli import run
 
 _orig_adb = console.adb
 

@@ -1,6 +1,6 @@
-from control_room.config import AppConfig
-from modules import banner
-from control_room.console import console, print_success, adb, ask
+from control_room.core.config import AppConfig
+from control_room.cli import banner
+from control_room.cli.console import console, print_success, adb, ask
 
 
 def use_keycode(config: AppConfig) -> None:

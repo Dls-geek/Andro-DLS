@@ -10,8 +10,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-from control_room.config import AppConfig
-from control_room.console import console, ask, print_error, print_success, print_warning
+from control_room.core.config import AppConfig
+from control_room.cli.console import console, ask, print_error, print_success, print_warning
 
 REPO = Path(__file__).resolve().parent.parent
 KEEPER = REPO / "modules" / "keeper.py"

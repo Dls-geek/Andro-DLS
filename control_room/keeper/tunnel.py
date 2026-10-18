@@ -54,7 +54,7 @@ def save_portmap_config(
 
 def portmap_setup_interactive() -> dict | None:
     """Guide the operator through entering their portmap.io details once."""
-    from control_room.console import ask, print_error, print_success
+    from control_room.cli.console import ask, print_error, print_success
 
     print("\n[bold cyan]▸ PORTMAP.IO SETUP[/bold cyan]  (permanent tunnel — enter once, reuse always)")
     print("[dim]Instruction box: 'ssh -i key user@host -f -N -R XXXX:localhost:YY' — copy from it[/dim]\n")

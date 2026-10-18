@@ -20,9 +20,9 @@ import subprocess
 import time
 from pathlib import Path
 
-from modules import remoteshell
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.ops import remoteshell
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     print_error,
     print_success,
@@ -200,7 +200,7 @@ def reaccess(config: AppConfig) -> None:
 def _ask_battery_ignore(serial: str) -> None:
     """Prompt once to open the ignore-battery-optimization screen (persists boot)."""
     try:
-        from control_room.console import confirm
+        from control_room.cli.console import confirm
 
         if confirm("Open battery-optimization ignore for the payload? (kills XOS auto-kill)"):
             _adb(["shell", "am", "start", "-a", "android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS",

@@ -9,8 +9,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from control_room.config import AppConfig
-from control_room.console import console, ask, print_error, print_success, print_warning
+from control_room.core.config import AppConfig
+from control_room.cli.console import console, ask, print_error, print_success, print_warning
 
 ROOT = Path(__file__).resolve().parent.parent
 PHONES = ROOT / ".payload-build" / "phones.json"
@@ -107,6 +107,6 @@ def setup_phones(config: AppConfig) -> None:
 
 
 def _console():
-    from control_room.console import console
+    from control_room.cli.console import console
 
     return console

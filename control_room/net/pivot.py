@@ -17,9 +17,9 @@ import socket
 import subprocess
 import time
 
-from modules import remoteshell
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.ops import remoteshell
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     print_error,
     print_success,

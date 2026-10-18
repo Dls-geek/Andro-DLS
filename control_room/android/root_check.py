@@ -3,8 +3,8 @@
 from rich.panel import Panel
 from rich.table import Table
 
-from control_room.config import AppConfig
-from control_room.console import (
+from control_room.core.config import AppConfig
+from control_room.cli.console import (
     console,
     task_status,
     adb,

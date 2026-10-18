@@ -2,8 +2,8 @@ import subprocess
 from pathlib import Path
 from datetime import datetime
 
-from control_room.config import AppConfig
-from control_room.console import print_success, print_error, confirm, task_status, ensure_config_dir, adb
+from control_room.core.config import AppConfig
+from control_room.cli.console import print_success, print_error, confirm, task_status, ensure_config_dir, adb
 
 
 def _timestamp() -> str:
